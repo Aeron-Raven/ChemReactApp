@@ -1,0 +1,250 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+
+@import url("https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css");
+:root {
+  --bulma-family-primary: "Lato";
+  --bulma-family-secondary: "Lato";
+  --bulma-family-code: "Lato";
+  --bulma-link-h: 170deg;
+  --bulma-link-s: 98%;
+  --bulma-link-l: 38%;
+  --bulma-duration: 150ms;
+  --black: black;
+  --light-gray: #F0F0F0F0;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: 0;
+  margin: 0;
+  padding: 0;
+  font-family: "Lato", serif;
+  font: 400;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+p {
+  overflow-y: hidden;
+}
+
+.no-scroll {
+  overflow-y: hidden;
+  overflow-x: hidden;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+}
+
+.error{
+  color: red;
+}
+.starthide {
+  opacity: 0;
+  transition: all 0.8s;
+}
+
+.startright {
+  transform: translateX(80%);
+}
+
+.startleft {
+  transform: translateX(-80%);
+}
+
+.starttop {
+  transform: translateY(-100%);
+}
+
+.hide-content {
+  display: none;
+  opacity: 0;
+}
+
+.show {
+  display: unset;
+  opacity: 1;
+  transform: translateX(0);
+}
+
+body {
+  height: 100vh;
+  width: 100%;
+}
+
+/* Nav */
+.navbar {
+  z-index: 1000;
+  position: fixed;
+  width: 100%;
+  height: fit-content;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1em 10em;
+  border: 0.1em solid black;
+  background: white;
+  top: 0;
+}
+
+.logo img {
+  max-width: 8em;
+  max-height: 6em;
+  object-fit: contain;
+}
+
+.menu-container {
+  display: flex;
+  gap: 3.5em;
+}
+
+.menu-link {
+  font-size: 1.2rem;
+  color: black;
+}
+
+.menu-link:hover {
+  transition: 0.2s;
+  color: grey;
+}
+
+.navbtn-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 1em;
+}
+
+.navbtn-container button {
+  cursor: pointer;
+  padding: 7px;
+}
+
+.headimage {
+  position: relative;
+}
+
+.headimage img {
+  z-index: -1;
+}
+
+.behind {
+  z-index: -1;
+}
+
+.headtext {
+  text-align: center;
+  padding: 2em;
+  z-index: -1;
+  position: absolute;
+  top: 42%;
+  left: 30%;
+}
+
+/* Page Elements */
+.page-body {
+  margin: 5em 10em;
+}
+
+.box-wrapper {
+  display: flex;
+  justify-content: space-between;
+  gap: 2em;
+  margin-bottom: 60px;
+}
+
+.box-container-1 {
+  display: block;
+  border: 0.1em solid black;
+  padding: 3em 2em;
+  min-width: 60%;
+  min-height: 70%;
+}
+
+.box-container-1 h1 {
+  font-size: 2.5em;
+}
+
+.box-container-2 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 60%;
+  min-height: 30%;
+  max-height: 30%;
+  object-fit: contain;
+  background-color: rgb(159, 159, 159);
+  z-index: -1;
+}
+
+/* Footer */
+.chemfooter {
+  background-color: #F0F0F0F0;
+  margin-top: 9em;
+  padding: 2em 2em 5em 2em;
+}
+
+.footer-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-inline: 17em;
+}
+
+.footer-nav {
+  display: flex;
+  align-items: center;
+}
+
+.footer-section {
+  margin: 2em;
+}
+
+/* Login */
+.form-page{
+  width: 100%;
+  height: 100%;
+  display:flex;
+  align-items: center;
+}
+.form-card {
+  
+  border: 0.1em solid black;
+  text-wrap: wrap;
+}
+
+.login-sub-text {
+  display: flex;
+  justify-content: space-between;
+}
+
+.login-sub-text .checkbox label:hover {
+  cursor: pointer;
+}
+
+.login-sub-text {
+  width: 100%;
+  margin: 0.6em 0;
+}
+
+.login-buttons {
+  display: flex;
+  align-items: center;
+  margin-top: 2.5em;
+  gap: 2em;
+}
+
+/* Student Modules */
+.modules-tab {
+  margin: 6em 0;
+}
+
+.module-pick:hover {
+  cursor: pointer;
+}
+
+/* Admin css */
