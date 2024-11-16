@@ -40,9 +40,9 @@ app.use((req, res, next) => {
 
 // Routes
 app.use('/api', limiter)
+app.use('/api/user', userRoutes)
 app.use('/requests/admin/login', adminLimiter, adminLogin)
 app.use('/api/testModules', webRoutes)
-app.use('/api/user', userRoutes)
 
 app.use('/requests/reset-password/:token', resetPassword)
 

@@ -14,7 +14,7 @@ router.post('/signup', signupUser)
 // Forgot Password Route
 router.post('/forgotpassword', forgotPassword)
 
-// router.use(requireAuth)
+router.use(requireAuth)
 // Add Score
 router.patch('/addscore/:id', addUserScore)
 // Admin
