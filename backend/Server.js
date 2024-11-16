@@ -46,7 +46,6 @@ app.use('/api/testModules', webRoutes)
 
 app.use('/requests/reset-password/:token', resetPassword)
 
-
 // connect to database
 mongoose.connect(process.env.MONGO_URI)
     .then(() => {

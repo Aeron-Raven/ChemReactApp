@@ -2,9 +2,11 @@ import { useState, useEffect } from "react";
 import Modal from "../../components/Modal";
 import Signup from "../../components/Signup";
 import { useUsersContext } from '../../hooks/useUsersContext';
+import { useAuthContext } from "../../hooks/useAuthContext";
 
 const AdminUsers = () => {
     const { users, dispatch } = useUsersContext();
+    const { user } = useAuthContext();
 
     // Modals
     const [addUserModal, setAddUserModal] = useState(false);
@@ -16,26 +18,33 @@ const AdminUsers = () => {
 
     // Handlers to open modals
     const handleAddUserModal = () => setAddUserModal(true);
-    const handleEditUserModal = (user) => {
-        setSelectedUser(user);
+    const handleEditUserModal = (eachUser) => {
+        setSelectedUser(eachUser);
         setEditUserModal(true);
     };
-    const handleDeleteUserModal = (user) => {
-        setSelectedUser(user);
+    const handleDeleteUserModal = (eachUser) => {
+        setSelectedUser(eachUser);
         setDeleteUserModal(true);
     };
 
     // Fetch users on component mount
     useEffect(() => {
         const fetchUsers = async () => {
-            const response = await fetch('/api/user/getusers', { method: 'GET' });
+            const response = await fetch('/api/user/getusers', {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${user.token}`
+                }
+            });
             const json = await response.json();
             if (response.ok) {
                 dispatch({ type: 'SET_USERS', payload: json });
             }
         };
-        fetchUsers();
-    }, [dispatch]);
+        if (user) {
+            fetchUsers();
+        }
+    }, [user]);
 
     const handleDeleteUser = async (userId) => {
         await fetch(`/api/user/${userId}`, { method: 'DELETE' });
@@ -56,15 +65,15 @@ const AdminUsers = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {users && users.map((user, index) => (
+                        {users && users.map((eachUser, index) => (
                             <tr key={index} className="is-clickable">
-                                <td>{user.name}</td>
-                                <td>{user.field}</td>
+                                <td>{eachUser.name}</td>
+                                <td>{eachUser.field}</td>
                                 <td className="has-text-right">
-                                    <button className="button is-info" onClick={() => handleEditUserModal(user)}>
+                                    <button className="button is-info" onClick={() => handleEditUserModal(eachUser)}>
                                         Edit User
                                     </button>
-                                    <button className="button is-danger" onClick={() => handleDeleteUserModal(user)}>
+                                    <button className="button is-danger" onClick={() => handleDeleteUserModal(eachUser)}>
                                         Remove User
                                     </button>
                                 </td>

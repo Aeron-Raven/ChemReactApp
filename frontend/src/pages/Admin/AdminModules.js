@@ -1,6 +1,7 @@
 import { useState, useEffect, useReducer } from 'react';
 import { useModulesContext } from '../../hooks/useModulesContext';
 import Modal from '../../components/Modal';
+import { useAuthContext } from '../../hooks/useAuthContext';
 
 // Modal Bodies
 import TestDetailsBody from '../../components/Admin/modalinfo/TestDetailsBody';
@@ -10,19 +11,27 @@ import EditModuleBody from '../../components/Admin/modalinfo/EditModuleBody';
 
 const AdminModules = () => {
     const { tests, dispatch } = useModulesContext();
+    const { user } = useAuthContext();
     const choiceLabels = ["A", "B", "C", "D"];
 
     // Fetch tests
     useEffect(() => {
         const fetchTests = async () => {
-            const response = await fetch('/api/testModules', { method: 'GET' });
+            const response = await fetch('/api/testModules', {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${user.token}`
+                }
+            });
             const json = await response.json();
             if (response.ok) {
                 dispatch({ type: 'SET_TESTS', payload: json });
             }
         };
-        fetchTests();
-    }, [dispatch]);
+        if (user) {
+            fetchTests();
+        }
+    }, [user]);
 
     const initialModalState = {
         testModalVisible: false,

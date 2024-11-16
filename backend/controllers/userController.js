@@ -95,7 +95,7 @@ const adminLogin = async (req, res) => {
         const userfield = 'admin'
 
         // Auth token
-        const token = createAdminToken('7=s#5;lz0:}qu}5Sv^olKP4C]opF57a[`@1l.C^4><R)B<C2~1');
+        const token = createAdminToken(process.env.ADMIN_TOKEN);
 
         res.status(200).json({ name, userfield, token })
     } catch (error) {

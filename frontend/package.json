@@ -1,5 +1,5 @@
 {
-  "proxy": "https://chemreactapp.onrender.com",
+  "proxy": "http://localhost:4000",
   "name": "react-chem-app",
   "version": "0.1.0",
   "private": true,
