@@ -45,7 +45,7 @@ const Home = () => {
                         <div className="subtitle">Only supports Android Version 9 and above.</div>
                     </h1>
                     <div>
-                        <a onClick={() => console.log('downloaded ahha')} className="button is-link">Download</a>
+                        <button onClick={() => console.log('downloaded ahha')} className="button is-link">Download</button>
                     </div>
                     <table className="table is-fullwidth is-bordered">
                         <thead>

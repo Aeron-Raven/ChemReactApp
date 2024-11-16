@@ -29,7 +29,7 @@ const LoadModules = () => {
                     <div className="title is-4">Welcome, <span id="headerUser">{user.name}</span></div>
                     <ul className="tabs is-boxed">
                         <li className="is-active">
-                            <a className="is-info">Modules</a>
+                            <span className="is-info">Modules</span>
                         </li>
                     </ul>
                     <div className="box" data-tab="first">

@@ -7,6 +7,10 @@ const testSchema = new Schema({
         type: String,
         required: true
     },
+    question:{
+        type: Object,
+        required: true
+    },
     over: {
         type: Number,
         required: true

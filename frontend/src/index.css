@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap");
 
 @import url("https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css");
 :root {
@@ -10,7 +10,7 @@
   --bulma-link-l: 38%;
   --bulma-duration: 150ms;
   --black: black;
-  --light-gray: #F0F0F0F0;
+  --light-gray: #f0f0f0f0;
 }
 
 *,
@@ -41,7 +41,7 @@ p {
   flex-direction: row;
 }
 
-.error{
+.error {
   color: red;
 }
 .starthide {
@@ -183,7 +183,7 @@ body {
 
 /* Footer */
 .chemfooter {
-  background-color: #F0F0F0F0;
+  background-color: #f0f0f0f0;
   margin-top: 9em;
   padding: 2em 2em 5em 2em;
 }
@@ -205,14 +205,15 @@ body {
 }
 
 /* Login */
-.form-page{
+.form-page {
   width: 100%;
-  height: 100%;
-  display:flex;
+  height: 100vh;
+  display: flex;
   align-items: center;
 }
 .form-card {
-  
+  margin: 3em 5em;
+  padding: 7em;
   border: 0.1em solid black;
   text-wrap: wrap;
 }
@@ -237,14 +238,54 @@ body {
   margin-top: 2.5em;
   gap: 2em;
 }
-
+.card-right {
+  background-color: #f0f0f0f0;
+}
 /* Student Modules */
 .modules-tab {
   margin: 6em 0;
 }
-
-.module-pick:hover {
-  cursor: pointer;
-}
-
 /* Admin css */
+.admin-page {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+}
+.space{
+  width: 27.69%;
+}
+.admin-navbar {
+  position: fixed;
+  margin-left: 2em;
+  width: 20%;
+  height: 100%;
+  justify-content: space-between;
+  border-right: 0.1em solid black;
+  background: white;
+  z-index: 1000;
+}
+.admin-navbar .media-content{
+  padding: 2em 1em;
+}
+.admin-navbar li a, .admin-navbar .menu-label{
+  padding: 1rem;
+}
+.admin-header{
+  width: 100%;
+}
+.admin-users, .admin-dashboard, .admin-modules{
+  height: fit-content;
+  margin: 2em;
+}
+.user-list{
+  border: 1px solid black;
+}
+.module-list td{
+  align-items: center;
+  width: 50%;
+  max-width: 50%;
+}
+.module-list td button{
+  margin: 0.5em;
+  width: 30%;
+}

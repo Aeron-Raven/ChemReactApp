@@ -1,4 +1,4 @@
-import { Link, Navig} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { useLogout } from '../hooks/useLogout';
 import { useAuthContext } from '../hooks/useAuthContext';
 import { useState } from 'react';
@@ -19,7 +19,7 @@ const Navbar = () => {
     }
     const handleClick = () => {
         logout()
-        window.location.href="/form"
+        window.location.href = "/form"
         setModal('modal')
     }
     return (

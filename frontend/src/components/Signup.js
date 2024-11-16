@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react'
-import { useSignup } from '../hooks/useSignup'
+import { useState } from 'react'
+import { useAddUser } from '../hooks/useAddUser'
 
-const Signup = () => {
+const Signup = ({ closeModal }) => {
 
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
@@ -9,7 +9,7 @@ const Signup = () => {
     const [checkpassword, setCheckPass] = useState('')
     const [userfield, setUserField] = useState('student')
 
-    const { signup, error, isLoading } = useSignup()
+    const { adduser, error, isLoading } = useAddUser()
 
     const [emptyFields, setEmptyFields] = useState([])
 
@@ -33,15 +33,14 @@ const Signup = () => {
         }
         setEmptyFields([]);
 
-        await signup(name, email, userfield, password);
+        await adduser(name, email, userfield, password);
+        
+        closeModal();
     };
 
     return (
         <form name="signUpForm" onSubmit={handleSubmit}>
-            <h1 className="title is-large">Join us and learn together {name} !!
-                <div className="subtitle">Create an account now</div>
-            </h1>
-            <div class="select is-link is-rounded">
+            <div className="select is-link is-rounded">
                 <select value={userfield} onChange={(e) => setUserField(e.target.value)}>
                     <option value="student">Student</option>
                     <option value="teacher">Teacher</option>
@@ -55,7 +54,7 @@ const Signup = () => {
                         placeholder="Username"
                         onChange={(e) => setName(e.target.value)} value={name} />
                 </div>
-            {emptyFields.includes('name') && <div className='error'>Please enter a name.</div>}
+                {emptyFields.includes('name') && <div className='error'>Please enter a name.</div>}
             </div>
             <div className="field">
                 <label className="label">Email</label>
