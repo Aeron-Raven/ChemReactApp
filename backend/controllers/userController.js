@@ -104,7 +104,7 @@ const adminLogin = async (req, res) => {
 }
 // Get users
 const getUsers = async (req, res) => {
-    const Users = await User.find({}).sort({ createdAt: -1 })
+    const users = await User.find({}).sort({ createdAt: -1 })
     res.status(200).json(users)
 }
 // Delete Users
