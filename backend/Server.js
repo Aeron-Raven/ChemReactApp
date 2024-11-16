@@ -19,6 +19,8 @@ const adminLimiter = rateLimit({
     max: 5,
     windowMs: 60 * 60 * 250,
     message: 'Too much admin login attempts, please try again in 15 minutes.',
+    standardHeaders: true,
+    legacyHeaders: false,
     handler: function (req, res) {
         return res.status(429).json({
             error: 'Too much admin login attempts, please try again in 15 minutes.'
@@ -30,6 +32,7 @@ const adminLimiter = rateLimit({
 app.use(limiter);
 app.use(express.json());
 
+app.set('trust proxy', 1)
 app.use((req, res, next) => {
     console.log(req.path, req.method)
     next()
