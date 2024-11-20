@@ -25,13 +25,13 @@ const AdminModules = () => {
             });
             const json = await response.json();
             if (response.ok) {
-                dispatch({ type: 'SET_TESTS', payload: json });
+                dispatch({ type: 'SET_TESTS', payload: Array.isArray(json) ? json : [] });
             }
         };
         if (user) {
             fetchTests();
         }
-    }, [user]);
+    }, [user, dispatch]);
 
     const initialModalState = {
         testModalVisible: false,
@@ -90,7 +90,7 @@ const AdminModules = () => {
         setSelectedTest(test);
         setModuleOver(questions.length);
         setModuleNumber(test.title.split(" ")[1]);
-        setModuleName(test.title.replace(`Module: ${test.title.split(" ")[1]} `, ''));
+        setModuleName(test.title.replace(`Lesson: ${test.title.split(" ")[1]} `, ''));
         setQuestions(
             Object.values(test.question).map((questionObj) => ({
                 questionText: questionObj.questionText,
@@ -111,43 +111,53 @@ const AdminModules = () => {
 
     const confirmSaveChanges = async () => {
         const moduleData = {
-            title: 'Module: ' + moduleNumber + ' ' + moduleName,
+            title: 'Lesson: ' + moduleNumber + ' ' + moduleName,
             question: questions.map((q, index) => ({
                 questionText: q.questionText,
                 choices: q.choices,
-                correctAnswer: q.correctAnswer
+                correctAnswer: q.correctAnswer || 'A'
             })),
             over: questions.length
         };
-
-        const response = await fetch(`/api/testModules/${selectedTest._id}`, {
-            method: 'PATCH',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(moduleData),
-        });
-        const json = await response.json();
-        if (response.ok) {
-            dispatch({ type: 'UPDATE_TEST', payload: json });
-            resetModuleForm();
-            modalDispatch({ type: 'CLOSE_MODAL', modal: 'confirmSaveModalVisible' });
+        try {
+            const response = await fetch(`/api/testModules/${selectedTest._id}`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${user.token}`
+                },
+                body: JSON.stringify(moduleData),
+            });
+            const json = await response.json();
+            if (response.ok) {
+                dispatch({ type: 'UPDATE_TEST', payload: json });
+                resetModuleForm();
+                modalDispatch({ type: 'CLOSE_MODAL', modal: 'confirmSaveModalVisible' });
+            }
+        } catch (error) {
+            console.error(error);
         }
+
     };
 
     const saveModule = async () => {
         // if (questions.some(q => !q.question.trim() || q.choices.some(choice => !choice.trim()))) return;
 
         const moduleData = {
-            title: 'Module: ' + moduleNumber + ' ' + moduleName,
+            title: 'Lesson: ' + moduleNumber + ' ' + moduleName,
             question: questions.map((q, index) => ({
                 questionText: q.questionText,
                 choices: q.choices,
-                correctAnswer: q.correctAnswer
+                correctAnswer: q.correctAnswer || 'A',
             })),
             over: questions.length
         };
         const response = await fetch('/api/testModules/', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${user.token}`
+            },
             body: JSON.stringify(moduleData),
         });
 
@@ -156,12 +166,16 @@ const AdminModules = () => {
             dispatch({ type: 'CREATE_TEST', payload: newModule });
             resetModuleForm();
             modalDispatch({ type: 'CLOSE_MODAL', modal: 'addQuestionsModalVisible' });
-
         }
     };
 
     const handleDeleteTest = async (selectedId) => {
-        const response = await fetch(`/api/testModules/${selectedId}`, { method: 'DELETE' });
+        const response = await fetch(`/api/testModules/${selectedId}`, {
+            method: 'DELETE',
+            headers: {
+                'Authorization': `Bearer ${user.token}`
+            }
+        });
         const json = await response.json();
         if (response.ok) {
             dispatch({ type: 'DELETE_TEST', payload: json });
@@ -227,7 +241,7 @@ const AdminModules = () => {
                 <Modal
                     click={modalState.addQuestionsModalVisible}
                     setClick={() => modalDispatch({ type: 'CLOSE_MODAL', modal: 'addQuestionsModalVisible' })}
-                    header="Add Questions"
+                    header={"Number of Questions: " + moduleOver}
                     body={<AddQuestionsBody questions={questions} setQuestions={setQuestions} choiceLabels={choiceLabels} />}
                     footer={
                         <div className='modal-card-foot'>

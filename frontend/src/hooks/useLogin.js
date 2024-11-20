@@ -42,27 +42,31 @@ export const useLogin = () => {
     const adminLogin = async (name, password) => {
         setIsLoading(true)
         setError(null)
+        try {
+            const response = await fetch('/requests/admin/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name, password })
+            })
+            const json = await response.json()
 
-        const response = await fetch('/requests/admin/login', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ name, password })
-        })
-
-        const json = await response.json()
-
-        if (!response.ok) {
+            if (!response.ok) {
+                setIsLoading(false)
+                setError(json.error)
+            }
+            if (response.ok) {
+    
+                localStorage.setItem('user', JSON.stringify(json))
+    
+                dispatch({ type: 'LOGIN', payload: json })
+    
+                setIsLoading(false)
+            }
+        }catch (error) {
             setIsLoading(false)
-            setError(json.error)
+            setError(error.message)
         }
-        if (response.ok) {
 
-            localStorage.setItem('user', JSON.stringify(json))
-
-            dispatch({ type: 'LOGIN', payload: json })
-
-            setIsLoading(false)
-        }
     }
     return { login, isLoading, error, adminLogin };
 }

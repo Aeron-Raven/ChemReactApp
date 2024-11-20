@@ -1,14 +1,16 @@
-import { createContext, useReducer, useEffect } from 'react'
+import { createContext, useReducer } from 'react'
 
 export const testsReducer = (state, action) => {
     switch (action.type) {
         case 'SET_TESTS':
             return {
-                tests: action.payload
+                tests: Array.isArray(action.payload) ? action.payload : []
             }
         case 'UPDATE_TEST':
             return {
-                tests: action.payload
+                tests: state.tests.map((test) =>
+                    test._id === action.payload._id ? action.payload : test
+                ),
             }
         case 'CREATE_TEST':
             return {
@@ -26,11 +28,11 @@ export const testsReducer = (state, action) => {
 export const ModulesContext = createContext();
 
 export const ModulesContextProvider = ({ children }) => {
-    
-    const [state, dispatch] = useReducer(testsReducer, {tests: null})
+
+    const [state, dispatch] = useReducer(testsReducer, { tests: [] })
 
     return (
-        <ModulesContext.Provider value={{...state, dispatch }}>
+        <ModulesContext.Provider value={{ ...state, dispatch }}>
             {children}
         </ModulesContext.Provider>
     )

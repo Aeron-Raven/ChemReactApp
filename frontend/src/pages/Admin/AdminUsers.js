@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import Modal from "../../components/Modal";
-import Signup from "../../components/Signup";
+import Signup from "../../components/AddUser";
+import EditUser from "../../components/EditUser";
 import { useUsersContext } from '../../hooks/useUsersContext';
 import { useAuthContext } from "../../hooks/useAuthContext";
 
@@ -11,45 +12,94 @@ const AdminUsers = () => {
     // Modals
     const [addUserModal, setAddUserModal] = useState(false);
     const [editUserModal, setEditUserModal] = useState(false);
+    const [resetPassModal, setResetPassModal] = useState(false);
+    const [emailSentModal, setEmailSentModal] = useState(false);
     const [deleteUserModal, setDeleteUserModal] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
 
     // Selected user for editing/deleting
     const [selectedUser, setSelectedUser] = useState(null);
 
     // Handlers to open modals
     const handleAddUserModal = () => setAddUserModal(true);
-    const handleEditUserModal = (eachUser) => {
-        setSelectedUser(eachUser);
-        setEditUserModal(true);
-    };
     const handleDeleteUserModal = (eachUser) => {
         setSelectedUser(eachUser);
         setDeleteUserModal(true);
     };
+    const handleEditUserModal = (eachUser) => {
+        setSelectedUser(eachUser);
+        setEditUserModal(true);
+    };
+
+    const confirmPassResetModal = (eachUser) => {
+        setSelectedUser(eachUser);
+        setResetPassModal(true);
+    };
+    const handleResetPass = async () => {
+        setIsLoading(true);
+        const data = {
+            email: selectedUser.email,
+        };
+        try {
+            const response = await fetch(`/api/user/forgotpassword/`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            });
+            const json = await response.json();
+            if (response.ok) {
+                setIsLoading(false)
+                setResetPassModal(false);
+                setEmailSentModal(true);
+            }
+        } catch (error) {
+            console.error(error);
+        }
+    };
 
     // Fetch users on component mount
     useEffect(() => {
-        const fetchUsers = async () => {
-            const response = await fetch('/api/user/getusers', {
-                method: 'GET',
+        try {
+            const fetchUsers = async () => {
+                const response = await fetch('/api/user/getusers', {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${user.token}`
+                    }
+                });
+                const json = await response.json();
+                if (response.ok) {
+                    dispatch({ type: 'SET_USERS', payload: json });
+                }
+            };
+            if (user) {
+                fetchUsers();
+            }
+        }
+        catch (error) {
+            console.log(error);
+        }
+    }, [user, dispatch]);
+
+    const handleDeleteUser = async (userId) => {
+        try {
+            const response = await fetch(`/api/user/removeuser/${userId}`, {
+                method: 'DELETE',
                 headers: {
                     'Authorization': `Bearer ${user.token}`
                 }
             });
             const json = await response.json();
             if (response.ok) {
-                dispatch({ type: 'SET_USERS', payload: json });
+                dispatch({ type: 'DELETE_USER', payload: json });
+                setDeleteUserModal(false);
             }
-        };
-        if (user) {
-            fetchUsers();
         }
-    }, [user]);
-
-    const handleDeleteUser = async (userId) => {
-        await fetch(`/api/user/${userId}`, { method: 'DELETE' });
-        dispatch({ type: 'DELETE_USER', payload: userId });
-        setDeleteUserModal(false);
+        catch (error) {
+            console.log(error);
+        }
     };
 
     return (
@@ -61,6 +111,7 @@ const AdminUsers = () => {
                         <tr>
                             <th>User</th>
                             <th>Field</th>
+                            <th>Modules Taken</th>
                             <th className="has-text-right">Functions</th>
                         </tr>
                     </thead>
@@ -68,7 +119,8 @@ const AdminUsers = () => {
                         {users && users.map((eachUser, index) => (
                             <tr key={index} className="is-clickable">
                                 <td>{eachUser.name}</td>
-                                <td>{eachUser.field}</td>
+                                <td>{eachUser.userfield}</td>
+                                <td>{eachUser.modules.score ? eachUser.modules.score : 'none'}</td>
                                 <td className="has-text-right">
                                     <button className="button is-info" onClick={() => handleEditUserModal(eachUser)}>
                                         Edit User
@@ -104,11 +156,12 @@ const AdminUsers = () => {
                     click={editUserModal}
                     setClick={setEditUserModal}
                     header="Edit User"
-                    body={<Signup closeModal={() => setEditUserModal(false)} user={selectedUser} />}
-                    footer={
-                        <div className="modal-card-foot">
-                            <button className="button" onClick={() => setEditUserModal(false)}>Cancel</button>
-                        </div>
+                    body={
+                        <EditUser
+                            selectedUser={selectedUser}
+                            closeModal={() => setEditUserModal(false)}
+                            confirmPassResetModal={() => confirmPassResetModal(selectedUser)}
+                        />
                     }
                 />
             )}
@@ -124,6 +177,43 @@ const AdminUsers = () => {
                         <div className="modal-card-foot">
                             <button className="button is-danger" onClick={() => handleDeleteUser(selectedUser._id)}>Yes</button>
                             <button className="button" onClick={() => setDeleteUserModal(false)}>No</button>
+                        </div>
+                    }
+                />
+            )}
+            {resetPassModal && (
+                <Modal
+                    click={resetPassModal}
+                    setClick={setResetPassModal}
+                    header="Reset Password"
+                    body={
+                        <p>Send a Reset Password Email to <strong>{selectedUser?.email}</strong>?</p>
+                    }
+                    footer={
+                        <div className="modal-card-foot">
+                            <button className="button is-success" onClick={() => handleResetPass()}>
+                                Yes
+                            </button>
+                            <button className="button" onClick={() => setResetPassModal(false)}>
+                                No
+                            </button>
+                        </div>
+                    }
+                />
+            )}
+            {emailSentModal && (
+                <Modal
+                    click={emailSentModal}
+                    setClick={setEmailSentModal}
+                    header="Email Sent"
+                    body={
+                        <p>A password reset email has been sent to <strong>{selectedUser?.email}</strong>.</p>
+                    }
+                    footer={
+                        <div className="modal-card-foot">
+                            <button className="button is-primary" onClick={() => setEmailSentModal(false)}>
+                                Okay
+                            </button>
                         </div>
                     }
                 />

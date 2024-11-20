@@ -2,7 +2,7 @@ const EditQuestionsBody = ({ questions, setQuestions, choiceLabels, moduleName, 
 
     const handleQuestionChange = (index, value) => {
         const updatedQuestions = [...questions];
-        updatedQuestions[index].question = value;
+        updatedQuestions[index].questionText = value;
         setQuestions(updatedQuestions);
     };
 
@@ -12,22 +12,40 @@ const EditQuestionsBody = ({ questions, setQuestions, choiceLabels, moduleName, 
         setQuestions(updatedQuestions);
     };
 
+    const handleCorrectAnswerChange = (qIndex, value) => {
+        const updatedQuestions = [...questions];
+        updatedQuestions[qIndex].correctAnswer = value;
+        setQuestions(updatedQuestions);
+    };
+
     return (
         <form>
             <div className="field has-addons">
                 <p className="control">
-                    <span className="button is-static">Module Title: </span>
+                    <span className="button is-static">Lesson Title: </span>
                 </p>
                 <div className="control">
-                    <input className={moduleName === '' ? "input is-danger" : "input"} type="text" placeholder="Title"
-                        value={moduleName} onChange={(e) => setModuleName(e.target.value)} />
+                    <input
+                        className={moduleName === '' ? "input is-danger" : "input"}
+                        type="text"
+                        placeholder="Title"
+                        value={moduleName}
+                        onChange={(e) => setModuleName(e.target.value)}
+                    />
                 </div>
             </div>
             <div className="field">
-                <label className="label">Module number:</label>
+                <label className="label">Lesson number:</label>
                 <div className="control">
-                    <input className={moduleNumber > 10 && moduleNumber ? "input is-danger" : "input"} type="number" min="1" max="50" placeholder="Module number (Max: 10)"
-                        value={moduleNumber} onChange={(e) => setModuleNumber(e.target.value)} />
+                    <input
+                        className={moduleNumber > 10 && moduleNumber ? "input is-danger" : "input"}
+                        type="number"
+                        min="1"
+                        max="50"
+                        placeholder="(Max: 10)"
+                        value={moduleNumber}
+                        onChange={(e) => setModuleNumber(e.target.value)}
+                    />
                 </div>
             </div>
             {questions.map((q, qIndex) => (
@@ -38,7 +56,7 @@ const EditQuestionsBody = ({ questions, setQuestions, choiceLabels, moduleName, 
                             type="text"
                             className="input"
                             placeholder={`Enter question ${qIndex + 1}`}
-                            value={q.question}
+                            value={q.questionText}
                             onChange={(e) => handleQuestionChange(qIndex, e.target.value)}
                         />
                     </div>
@@ -57,6 +75,23 @@ const EditQuestionsBody = ({ questions, setQuestions, choiceLabels, moduleName, 
                                     />
                                 </div>
                             ))}
+                        </div>
+                    </div>
+                    <div className="field">
+                        <label className="label">Correct Answer</label>
+                        <div className="control">
+                            <div className="select">
+                                <select
+                                    value={q.correctAnswer}
+                                    onChange={(e) => handleCorrectAnswerChange(qIndex, e.target.value)}
+                                >
+                                    {choiceLabels.map((label, index) => (
+                                        <option key={index} value={label}>
+                                            {label}
+                                        </option>
+                                    ))}
+                                </select>
+                            </div>
                         </div>
                     </div>
                 </div>

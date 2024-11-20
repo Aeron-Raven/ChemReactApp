@@ -1,8 +1,29 @@
+import { useEffect } from 'react';
+
 const Home = () => {
+    useEffect(() => {
+        // Get all elements with the class `starthide`
+        const hiddenElements = document.querySelectorAll(".starthide");
+
+        // Create the IntersectionObserver
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add("show");
+                }
+            });
+        });
+
+        // Observe each hidden element
+        hiddenElements.forEach((el) => observer.observe(el));
+
+        // Cleanup function to disconnect the observer
+        return () => observer.disconnect();
+    }, []);
     return (
         <div>
             <div className="headimage">
-                {/* <img className="fade-animate" src="https://placehold.co/1920x1080" alt="image" className="starthide ui rounded image" style="transition: 2s;"> */}
+                <img className="fade-animate starthide image" src="https://placehold.co/1920x1080" alt="" style={{ transition: '2s' }} />
                 <div className="starthide headtext fade-animate">
                     <h4>Learn how Chemistry Tools are used</h4>
                     <p>The importance of Chemistry Tools, with the power of Augmented Reality</p>
@@ -16,13 +37,13 @@ const Home = () => {
                         <p>Understand how chemistry tools work with the power of Augmented Reality Technology</p>
                     </div>
                     <div className="starthide startright box-container-2 fade-animate">
-                        {/* <img src="https://placehold.co/1920x1080" alt="image" className="ui rounded image"> */}
+                        <img src="https://placehold.co/1920x1080" alt="" className="starthide ui rounded image" />
                     </div>
                 </div>
                 <div id="aboutus"></div>
                 <div className="box-wrapper">
                     <div className="starthide startleft box-container-2 fade-animate">
-                        {/* <img src="https://placehold.co/1920x1080" alt="image" className="ui rounded image"> */}
+                        <img src="https://placehold.co/1920x1080" alt="" className="starthide ui rounded image" />
                     </div>
                     <div className="box-container-1">
                         <h1 className="title is-3">Why are we doing this?</h1>

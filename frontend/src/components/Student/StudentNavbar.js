@@ -2,55 +2,54 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import Modal from "../Modal";
 import { useLogout } from "../../hooks/useLogout";
+import { useAuthContext } from "../../hooks/useAuthContext";
 
-const AdminNavbar = () => {
+const StudentNavbar = () => {
     const { logout } = useLogout();
     const [active, setActive] = useState('dashboard');
     const [click, setClick] = useState(false);
+    const { user } = useAuthContext();
 
     const handleLogout = () => {
         logout();
     }
 
     return (
-        <aside className="menu admin-navbar">
-            <div className="media-content">
-                <p className="title is-4">Admin</p>
+        <aside className="menu student-navbar">
+            <div className="media-content p-5">
+                <p className="title is-4">{user.name}</p>
                 <p className="subtitle is-6">ChemTool Vision</p>
                 <div className="content">
                     <time>{new Date().toDateString()}</time>
                 </div>
             </div>
-            <p className="menu-label">Welcome, Admin</p>
+            <p className="menu-label p-2">Welcome to Chemtool Vision</p>
             <ul className="menu-list">
                 <li>
-                    <Link to="/">Home</Link>
+                    <Link
+                        to="/">
+                        Home
+                    </Link>
                 </li>
             </ul>
-            <p className="menu-label">Administration</p>
+            <p className="menu-label p-2">General</p>
             <ul className="menu-list">
                 <li>
                     <Link
                         className={active === 'dashboard' ? 'is-active' : ''}
-                        onClick={() => setActive('dashboard')} to="/admin/dashboard">
+                        onClick={() => setActive('dashboard')} to="/student/dashboard">
                         Dashboard
                     </Link>
                 </li>
                 <li>
-                    <Link className={active === 'modules' ? 'is-active' : ''}
-                        onClick={() => setActive('modules')} to="/admin/modules">
-                        Modules
-                    </Link>
-                </li>
-                <li>
                     <Link
-                        className={active === 'users' ? 'is-active' : ''}
-                        onClick={() => setActive('users')} to="/admin/users">
-                        Users
+                        className={active === 'modules' ? 'is-active' : ''}
+                        onClick={() => setActive('modules')} to="/student/modules">
+                        Current Modules
                     </Link>
                 </li>
             </ul>
-            <p className="menu-label">Utilities</p>
+            <p className="menu-label p-2">Utilities</p>
             <ul className="menu-list">
                 <li><Link onClick={() => setClick(true)}>Logout</Link></li>
             </ul>
@@ -67,4 +66,4 @@ const AdminNavbar = () => {
     );
 }
 
-export default AdminNavbar;
+export default StudentNavbar;

@@ -24,7 +24,7 @@ export const useAddUser = () => {
             setError(json.error)
         }
         if (response.ok) {
-            dispatch({ type: 'LOGIN', payload: json })
+            dispatch({ type: 'CREATE_USER', payload: json })
             setIsLoading(false)
         }
     }

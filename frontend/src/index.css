@@ -46,7 +46,7 @@ p {
 }
 .starthide {
   opacity: 0;
-  transition: all 0.8s;
+  transition: all 1.5s;
 }
 
 .startright {
@@ -116,7 +116,8 @@ body {
 .navbtn-container {
   display: flex;
   justify-content: space-between;
-  gap: 1em;
+  align-items: center;
+  gap: 2em;
 }
 
 .navbtn-container button {
@@ -142,7 +143,7 @@ body {
   z-index: -1;
   position: absolute;
   top: 42%;
-  left: 30%;
+  left: 34%;
 }
 
 /* Page Elements */
@@ -238,23 +239,38 @@ body {
   margin-top: 2.5em;
   gap: 2em;
 }
+.card-left {
+  width: 100%;
+  margin-right: 3em;
+}
 .card-right {
+  width: 100%;
   background-color: #f0f0f0f0;
+}
+.card-right img {
+  object-fit: cover;
+}
+/* User Logged in */
+.nav-user-container {
+  display: flex;
+  gap: 1em;
 }
 /* Student Modules */
 .modules-tab {
   margin: 6em 0;
 }
 /* Admin css */
-.admin-page {
+.admin-page,
+.student-page {
   width: 100%;
   height: 100vh;
   display: flex;
 }
-.space{
+.space {
   width: 27.69%;
 }
-.admin-navbar {
+.admin-navbar,
+.student-navbar {
   position: fixed;
   margin-left: 2em;
   width: 20%;
@@ -264,28 +280,38 @@ body {
   background: white;
   z-index: 1000;
 }
-.admin-navbar .media-content{
+.admin-navbar .media-content {
   padding: 2em 1em;
 }
-.admin-navbar li a, .admin-navbar .menu-label{
+.admin-navbar li a,
+.admin-navbar .menu-label {
   padding: 1rem;
 }
-.admin-header{
+.admin-header,
+.student-header {
   width: 100%;
 }
-.admin-users, .admin-dashboard, .admin-modules{
+.admin-form {
+  margin: 5em;
+}
+.admin-users,
+.admin-dashboard,
+.admin-modules,
+.student-users,
+.student-dashboard,
+.student-modules {
   height: fit-content;
   margin: 2em;
 }
-.user-list{
+.user-list {
   border: 1px solid black;
 }
-.module-list td{
+.module-list td {
   align-items: center;
   width: 50%;
   max-width: 50%;
 }
-.module-list td button{
+.module-list td button {
   margin: 0.5em;
   width: 30%;
 }

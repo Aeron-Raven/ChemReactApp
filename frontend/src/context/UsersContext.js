@@ -8,7 +8,7 @@ export const usersReducer = (state, action) => {
             }
         case 'UPDATE_USER':
             return {
-                users: action.payload
+                users: [action.payload, ...state.users]
             }
         case 'CREATE_USER':
             return {
@@ -26,6 +26,7 @@ export const usersReducer = (state, action) => {
 export const UsersContext = createContext();
 
 export const UsersContextProvider = ({ children }) => {
+        
     
     const [state, dispatch] = useReducer(usersReducer, {users: null})
 

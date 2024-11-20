@@ -1,10 +1,10 @@
 import LeftCard from '../components/LeftCard'
 import RightCard from '../components/RightCard'
 
-const FormPage = () => {
+const LoginPage = () => {
     return (
         <div className="form-page">
-            <div className="container is-fluid form-card">
+            <div className="container is-flex is-fluid form-card">
                 <LeftCard />
                 <RightCard />
             </div>
@@ -12,4 +12,4 @@ const FormPage = () => {
     );
 }
 
-export default FormPage;
+export default LoginPage;

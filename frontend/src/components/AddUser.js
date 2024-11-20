@@ -34,7 +34,7 @@ const Signup = ({ closeModal }) => {
         setEmptyFields([]);
 
         await adduser(name, email, userfield, password);
-        
+
         closeModal();
     };
 

@@ -58,7 +58,7 @@ const forgotPassword = async (req, res) => {
 
         await user.save();
 
-        await sendPasswordResetEmail(user.email, `${process.env.BASE_URL}:${process.env.PORT}/requests/reset-password/${resetToken}`);
+        await sendPasswordResetEmail(user.email, `${process.env.BASE_URL}/reset-password/${resetToken}`);
 
         res.status(200).json({ message: 'Password Reset Successfully' })
     } catch (error) {
@@ -104,7 +104,7 @@ const adminLogin = async (req, res) => {
 }
 // Get users
 const getUsers = async (req, res) => {
-    const users = await User.find({}).sort({ createdAt: -1 })
+    const users = await User.find({}).sort({ createdAt: 1 })
     res.status(200).json(users)
 }
 // Delete Users
