@@ -26,7 +26,8 @@ function pathConditions(pathname) {
     pathname !== '/login' &&
     !pathname.startsWith('/student') &&
     !pathname.startsWith('/admin') &&
-    !pathname.startsWith('/alogin')
+    !pathname.startsWith('/alogin') &&
+    !pathname.startsWith('/reset-password')
   );
 }
 
@@ -62,14 +63,13 @@ function App() {
         { path: '/', element: <Home /> },
         { path: '/home', element: <Navigate to="/" /> },
         { path: '/login', element: !user ? <LoginPage /> : <Navigate to="/student" /> },
-        { path: '/reset-pass/:id', element: <ResetPass />},
+        { path: '/reset-password/:token', element: <ResetPass />},
         {
           path: '/student', element: user ? <StudentPage /> : <Navigate to="/login" />,
           children: [
             { index: true, element: <Navigate to="dashboard" /> },
             { path: 'dashboard', element: <StudentDashboard /> },
             { path: 'modules', element: <StudentModules /> },
-
           ]
         },
         { path: '/alogin', element: !isAdmin ? <AdminLogin /> : <Navigate to="/admin" /> },

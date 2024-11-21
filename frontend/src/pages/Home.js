@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
+import chemapp1 from '../assets/chemapp1.jpg'
 
 const Home = () => {
     useEffect(() => {
-        // Get all elements with the class `starthide`
         const hiddenElements = document.querySelectorAll(".starthide");
 
         // Create the IntersectionObserver
@@ -14,16 +14,14 @@ const Home = () => {
             });
         });
 
-        // Observe each hidden element
         hiddenElements.forEach((el) => observer.observe(el));
 
-        // Cleanup function to disconnect the observer
         return () => observer.disconnect();
     }, []);
     return (
         <div>
             <div className="headimage">
-                <img className="fade-animate starthide image" src="https://placehold.co/1920x1080" alt="" style={{ transition: '2s' }} />
+                <img className="fade-animate starthide image" src={chemapp1} alt="" style={{ transition: '2s' }} />
                 <div className="starthide headtext fade-animate">
                     <h4>Learn how Chemistry Tools are used</h4>
                     <p>The importance of Chemistry Tools, with the power of Augmented Reality</p>
