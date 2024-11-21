@@ -76,242 +76,346 @@ body {
   height: 100vh;
   width: 100%;
 }
+@media only screen and (min-width: 1050px) {
+  /* Nav */
+  .navbar {
+    z-index: 1000;
+    position: fixed;
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1em 10em;
+    border: 0.1em solid black;
+    background: white;
+    top: 0;
+  }
 
-/* Nav */
-.navbar {
-  z-index: 1000;
-  position: fixed;
-  width: 100%;
-  height: fit-content;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1em 10em;
-  border: 0.1em solid black;
-  background: white;
-  top: 0;
+  .logo img {
+    max-width: 8em;
+    max-height: 6em;
+    object-fit: contain;
+  }
+
+  .menu-container {
+    display: flex;
+    gap: 3.5em;
+  }
+
+  .menu-link {
+    font-size: 1.2rem;
+    color: black;
+  }
+
+  .menu-link:hover {
+    transition: 0.2s;
+    color: grey;
+  }
+
+  .navbtn-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2em;
+  }
+
+  .navbtn-container button {
+    cursor: pointer;
+    padding: 7px;
+  }
+
+  .headimage {
+    position: relative;
+  }
+
+  .headimage img {
+    z-index: -1;
+  }
+
+  .behind {
+    z-index: -1;
+  }
+
+  .headtext {
+    text-align: center;
+    padding: 2em;
+    z-index: -1;
+    position: absolute;
+    top: 42%;
+    left: 34%;
+  }
+
+  /* Page Elements */
+  .page-body {
+    margin: 5em 10em;
+  }
+
+  .box-wrapper {
+    display: flex;
+    justify-content: space-between;
+    gap: 2em;
+    margin-bottom: 60px;
+  }
+
+  .box-container-1 {
+    display: block;
+    border: 0.1em solid black;
+    padding: 3em 2em;
+    min-width: 60%;
+    min-height: 70%;
+  }
+
+  .box-container-1 h1 {
+    font-size: 2.5em;
+  }
+
+  .box-container-2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 60%;
+    min-height: 30%;
+    max-height: 30%;
+    object-fit: contain;
+    background-color: rgb(159, 159, 159);
+    z-index: -1;
+  }
+
+  /* Footer */
+  .chemfooter {
+    background-color: #f0f0f0f0;
+    margin-top: 9em;
+    padding: 2em 2em 5em 2em;
+  }
+
+  .footer-box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-inline: 17em;
+  }
+
+  .footer-nav {
+    display: flex;
+    align-items: center;
+  }
+
+  .footer-section {
+    margin: 2em;
+  }
+
+  /* Login */
+  .form-page {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+  }
+  .form-card {
+    margin: 3em 5em;
+    padding: 7em;
+    border: 0.1em solid black;
+    text-wrap: wrap;
+  }
+
+  .login-sub-text {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .login-sub-text .checkbox label:hover {
+    cursor: pointer;
+  }
+
+  .login-sub-text {
+    width: 100%;
+    margin: 0.6em 0;
+  }
+
+  .login-buttons {
+    display: flex;
+    align-items: center;
+    margin-top: 2.5em;
+    gap: 2em;
+  }
+  .card-left {
+    width: 100%;
+    margin-right: 3em;
+  }
+  .card-right {
+    width: 100%;
+    background-color: #f0f0f0f0;
+  }
+  .card-right img {
+    object-fit: cover;
+  }
+  /* User Logged in */
+  .nav-user-container {
+    display: flex;
+    gap: 1em;
+  }
+  /* Student Modules */
+  .modules-tab {
+    margin: 6em 0;
+  }
+  /* Admin css */
+  .admin-page,
+  .student-page {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+  }
+  .space {
+    width: 27.69%;
+  }
+  .admin-navbar,
+  .student-navbar {
+    position: fixed;
+    margin-left: 2em;
+    width: 20%;
+    height: 100%;
+    justify-content: space-between;
+    border-right: 0.1em solid black;
+    background: white;
+    z-index: 1000;
+  }
+  .admin-navbar .media-content {
+    padding: 2em 1em;
+  }
+  .admin-navbar li a,
+  .admin-navbar .menu-label {
+    padding: 1rem;
+  }
+  .admin-header,
+  .student-header {
+    width: 100%;
+  }
+  .admin-form {
+    margin: 5em;
+  }
+  .admin-users,
+  .admin-dashboard,
+  .admin-modules,
+  .student-users,
+  .student-dashboard,
+  .student-modules {
+    height: fit-content;
+    margin: 2em;
+  }
+  .user-list {
+    border: 1px solid black;
+  }
+  .module-list td {
+    align-items: center;
+    width: 50%;
+    max-width: 50%;
+  }
+  .module-list td button {
+    margin: 0.5em;
+    width: 30%;
+  }
 }
 
-.logo img {
-  max-width: 8em;
-  max-height: 6em;
-  object-fit: contain;
-}
+/* For screen widths below 1050px */
+@media only screen and (max-width: 1049px) {
+  /* Navbar */
+  .navbar {
+    padding: 1em 2em;
+    gap: 1em;
+    display: flex;
+    position: fixed;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .logo img {
+    max-width: 6em; /* Reduce logo size */
+  }
+  .navbar .menu-container {
+    display: none;
+  }
+  .navbtn-container a {
+    font-size: 14px;
+  }
 
-.menu-container {
-  display: flex;
-  gap: 3.5em;
-}
+  .menu-container {
+    flex-direction: column; /* Stack menu links */
+    gap: 1em;
+  }
 
-.menu-link {
-  font-size: 1.2rem;
-  color: black;
-}
+  /* Header Text and Image */
+  .headimage img {
+    margin-top: 5em;
+  }
+  /* Page Body */
+  .page-body {
+    margin: 2em; /* Reduce margins for smaller screens */
+  }
 
-.menu-link:hover {
-  transition: 0.2s;
-  color: grey;
-}
+  .box-wrapper {
+    flex-direction: column; /* Stack boxes vertically */
+    gap: 1em;
+  }
 
-.navbtn-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 2em;
-}
+  .box-container-1,
+  .box-container-2 {
+    width: 100%; /* Make boxes take full width */
+    margin: 3em 0;
+  }
+  .about-us {
+    padding: 2em;
+    margin-bottom: 4em;
+  }
+  .download button {
+    margin-bottom: 4em;
+  }
 
-.navbtn-container button {
-  cursor: pointer;
-  padding: 7px;
-}
+  /* Footer */
+  .footer-box {
+    flex-direction: column; /* Stack footer sections */
+    margin-inline: 2em; /* Reduce inline margins */
+    gap: 1em;
+  }
 
-.headimage {
-  position: relative;
-}
+  /* Form */
+  .form-card {
+    margin: 1em;
+    padding: 2em;
+  }
 
-.headimage img {
-  z-index: -1;
-}
+  .login-buttons {
+    flex-direction: column; /* Stack buttons vertically */
+    gap: 1em;
+  }
 
-.behind {
-  z-index: -1;
-}
+  /* Admin Page */
+  .admin-navbar {
+    width: 100%; /* Full-width navbar */
+    position: static; /* Remove fixed positioning */
+    margin: 0;
+    border-right: none;
+    border-bottom: 0.1em solid black; /* Add a bottom border instead */
+  }
 
-.headtext {
-  text-align: center;
-  padding: 2em;
-  z-index: -1;
-  position: absolute;
-  top: 42%;
-  left: 34%;
-}
+  .admin-page,
+  .student-page {
+    flex-direction: column; /* Stack content */
+  }
 
-/* Page Elements */
-.page-body {
-  margin: 5em 10em;
-}
+  .space {
+    display: none; /* Hide unnecessary spacing */
+  }
 
-.box-wrapper {
-  display: flex;
-  justify-content: space-between;
-  gap: 2em;
-  margin-bottom: 60px;
-}
+  /* General Adjustments */
+  .module-list td {
+    width: auto; /* Allow table cells to shrink */
+  }
 
-.box-container-1 {
-  display: block;
-  border: 0.1em solid black;
-  padding: 3em 2em;
-  min-width: 60%;
-  min-height: 70%;
-}
-
-.box-container-1 h1 {
-  font-size: 2.5em;
-}
-
-.box-container-2 {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 60%;
-  min-height: 30%;
-  max-height: 30%;
-  object-fit: contain;
-  background-color: rgb(159, 159, 159);
-  z-index: -1;
-}
-
-/* Footer */
-.chemfooter {
-  background-color: #f0f0f0f0;
-  margin-top: 9em;
-  padding: 2em 2em 5em 2em;
-}
-
-.footer-box {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-inline: 17em;
-}
-
-.footer-nav {
-  display: flex;
-  align-items: center;
-}
-
-.footer-section {
-  margin: 2em;
-}
-
-/* Login */
-.form-page {
-  width: 100%;
-  height: 100vh;
-  display: flex;
-  align-items: center;
-}
-.form-card {
-  margin: 3em 5em;
-  padding: 7em;
-  border: 0.1em solid black;
-  text-wrap: wrap;
-}
-
-.login-sub-text {
-  display: flex;
-  justify-content: space-between;
-}
-
-.login-sub-text .checkbox label:hover {
-  cursor: pointer;
-}
-
-.login-sub-text {
-  width: 100%;
-  margin: 0.6em 0;
-}
-
-.login-buttons {
-  display: flex;
-  align-items: center;
-  margin-top: 2.5em;
-  gap: 2em;
-}
-.card-left {
-  width: 100%;
-  margin-right: 3em;
-}
-.card-right {
-  width: 100%;
-  background-color: #f0f0f0f0;
-}
-.card-right img {
-  object-fit: cover;
-}
-/* User Logged in */
-.nav-user-container {
-  display: flex;
-  gap: 1em;
-}
-/* Student Modules */
-.modules-tab {
-  margin: 6em 0;
-}
-/* Admin css */
-.admin-page,
-.student-page {
-  width: 100%;
-  height: 100vh;
-  display: flex;
-}
-.space {
-  width: 27.69%;
-}
-.admin-navbar,
-.student-navbar {
-  position: fixed;
-  margin-left: 2em;
-  width: 20%;
-  height: 100%;
-  justify-content: space-between;
-  border-right: 0.1em solid black;
-  background: white;
-  z-index: 1000;
-}
-.admin-navbar .media-content {
-  padding: 2em 1em;
-}
-.admin-navbar li a,
-.admin-navbar .menu-label {
-  padding: 1rem;
-}
-.admin-header,
-.student-header {
-  width: 100%;
-}
-.admin-form {
-  margin: 5em;
-}
-.admin-users,
-.admin-dashboard,
-.admin-modules,
-.student-users,
-.student-dashboard,
-.student-modules {
-  height: fit-content;
-  margin: 2em;
-}
-.user-list {
-  border: 1px solid black;
-}
-.module-list td {
-  align-items: center;
-  width: 50%;
-  max-width: 50%;
-}
-.module-list td button {
-  margin: 0.5em;
-  width: 30%;
+  .module-list td button {
+    width: auto; /* Allow buttons to shrink */
+  }
+  .card-right{
+    display: none;
+  }
 }

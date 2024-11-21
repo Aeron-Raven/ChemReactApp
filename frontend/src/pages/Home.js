@@ -19,7 +19,7 @@ const Home = () => {
         return () => observer.disconnect();
     }, []);
     return (
-        <div>
+        <div className="home-page">
             <div className="headimage">
                 <img className="fade-animate starthide image" src={chemapp1} alt="" style={{ transition: '2s' }} />
                 <div className="starthide headtext fade-animate">
@@ -50,7 +50,7 @@ const Home = () => {
                     </div>
                 </div>
                 <div id="downloadnow"></div>
-                <div className="box-wrapper" style={{ flexDirection: 'column', textAlign: 'center' }}>
+                <div className="box-wrapper about-us" style={{ flexDirection: 'column', textAlign: 'center' }}>
                     <h1 className="title is-3">About us</h1>
                     <div className="box behind">
                         <p>We are the IT-69 of the Bachelor of Science in Information Technology of Don Honorio State
@@ -59,13 +59,11 @@ const Home = () => {
                     </div>
                 </div>
 
-                <div className="box-wrapper" style={{ flexDirection: 'column', textAlign: 'center' }}>
+                <div className="box-wrapper download" style={{ flexDirection: 'column', textAlign: 'center' }}>
                     <h1 className="title is-1">Download the APK now!
                         <div className="subtitle">Only supports Android Version 9 and above.</div>
                     </h1>
-                    <div>
-                        <button onClick={() => console.log('downloaded ahha')} className="button is-link">Download</button>
-                    </div>
+                    <button onClick={() => console.log('downloaded ahha')} className="button is-link">Download</button>
                     <table className="table is-fullwidth is-bordered">
                         <thead>
                             <tr>
