@@ -64,7 +64,7 @@ const AdminUsers = () => {
     useEffect(() => {
         try {
             const fetchUsers = async () => {
-                const response = await fetch('/api/user/getusers', {
+                const response = await fetch(`${URL}/api/user/getusers`, {
                     method: 'GET',
                     headers: {
                         'Authorization': `Bearer ${user.token}`
@@ -86,7 +86,7 @@ const AdminUsers = () => {
 
     const handleDeleteUser = async (userId) => {
         try {
-            const response = await fetch(`/api/user/removeuser/${userId}`, {
+            const response = await fetch(`${URL}/api/user/removeuser/${userId}`, {
                 method: 'DELETE',
                 headers: {
                     'Authorization': `Bearer ${user.token}`
