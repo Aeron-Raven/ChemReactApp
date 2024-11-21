@@ -70,7 +70,7 @@ const StudentModules = () => {
                                         <h1>{test.title}</h1>
                                     </td>
                                     <td className='has-text-right'>
-                                        <h2>Up to: <span className='title is-4'>20</span></h2>
+                                        <h2>Up to: <span className='title is-4'>{test.over}</span></h2>
                                     </td>
                                 </tr>
                             </tbody>

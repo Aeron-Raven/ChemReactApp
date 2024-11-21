@@ -72,7 +72,7 @@ const StudentModules = () => {
                                         <h1>{test.title}</h1>
                                     </td>
                                     <td className='has-text-right'>
-                                        <h2>Score: <span className='title is-4'>{module?.score ?? '0'}</span>/20</h2>
+                                        <h2>Score: <span className='title is-4'>{module?.score ?? '0'}</span>/{test.over}</h2>
                                     </td>
                                 </tr>
                             </tbody>
