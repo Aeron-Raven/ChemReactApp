@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useAuthContext } from './useAuthContext'
+import { URL } from '../App'
 
 export const useLogin = () => {
 
@@ -12,7 +13,7 @@ export const useLogin = () => {
         setError(null)
 
         try {
-            const response = await fetch('/api/user/login', {
+            const response = await fetch(`${URL}/api/user/login`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email, password })
@@ -55,14 +56,14 @@ export const useLogin = () => {
                 setError(json.error)
             }
             if (response.ok) {
-    
+
                 localStorage.setItem('user', JSON.stringify(json))
-    
+
                 dispatch({ type: 'LOGIN', payload: json })
-    
+
                 setIsLoading(false)
             }
-        }catch (error) {
+        } catch (error) {
             setIsLoading(false)
             setError(error.message)
         }

@@ -21,6 +21,8 @@ import AdminUsers from './pages/Admin/AdminUsers';
 import { useAuthContext } from './hooks/useAuthContext';
 import AdminLogin from './pages/Admin/AdminLogin';
 
+export const URL = process.env.REACT_APP_API_URL;
+
 function pathConditions(pathname) {
   return (
     pathname !== '/login' &&
