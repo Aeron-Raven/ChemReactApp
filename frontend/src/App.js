@@ -11,6 +11,10 @@ import StudentModules from './pages/Student/StudentModules';
 import Home from './pages/Home';
 import ErrorPage from './pages/ErrorPage';
 import ResetPass from './pages/ResetPass';
+import TeacherDashboard from './pages/Teacher/TeacherDashboard';
+import TeacherPage from './pages/Teacher/TeacherPage';
+import TeacherUsers from './pages/Teacher/TeacherUsers';
+import TeacherModules from './pages/Teacher/TeacherModules';
 
 import AdminPage from './pages/Admin/AdminPage';
 import AdminDashboard from './pages/Admin/AdminDashboard';
@@ -27,6 +31,7 @@ function pathConditions(pathname) {
   return (
     pathname !== '/login' &&
     !pathname.startsWith('/student') &&
+    !pathname.startsWith('/teacher') &&
     !pathname.startsWith('/admin') &&
     !pathname.startsWith('/alogin') &&
     !pathname.startsWith('/reset-password')
@@ -47,14 +52,9 @@ function NavbarVisibilityWrapper() {
 
 function App() {
   const { user } = useAuthContext();
-  let isStudent;
-  if (user && user.userfield === 'student') {
-    isStudent = true;
-  }
-  let isAdmin;
-  if (user && user.userfield === 'admin') {
-    isAdmin = true;
-  }
+  let isTeacher = user?.userfield === 'teacher';
+  let isAdmin = user?.userfield === 'admin';
+  let isStudent = user?.userfield === 'student';
 
   const router = createBrowserRouter([
     {
@@ -64,21 +64,31 @@ function App() {
       children: [
         { path: '/', element: <Home /> },
         { path: '/home', element: <Navigate to="/" /> },
-        { path: '/login', element: !user ? <LoginPage /> : <Navigate to="/student" /> },
-        { path: '/reset-password/:token', element: <ResetPass />},
+        { path: '/login', element: !user ? <LoginPage /> : <Navigate to={user.userfield === 'teacher' ? '/teacher' : '/student'} /> },
+        { path: '/reset-password/:token', element: <ResetPass /> },
         {
-          path: '/student', element: user ? <StudentPage /> : <Navigate to="/login" />,
+          path: '/student', element: isStudent ? <StudentPage /> : <Navigate to="/login" />,
           children: [
             { index: true, element: <Navigate to="dashboard" /> },
             { path: 'dashboard', element: <StudentDashboard /> },
             { path: 'modules', element: <StudentModules /> },
           ]
         },
+        {
+          path: '/teacher',
+          element: isTeacher ? <TeacherPage /> : <Navigate to="/login" />,
+          children: [
+            { index: true, element: <Navigate to="dashboard" /> },
+            { path: 'dashboard', element: <TeacherDashboard /> },
+            { path: 'modules', element: <TeacherModules /> },
+            { path: 'users', element: <TeacherUsers /> },
+          ]
+        },
         { path: '/alogin', element: !isAdmin ? <AdminLogin /> : <Navigate to="/admin" /> },
         // Admin
         {
           path: '/admin',
-          element: isAdmin ? <AdminPage /> : <Navigate to="/alogin/" />,
+          element: isAdmin ? <AdminPage /> : <Navigate to="/alogin" />,
           children: [
             { index: true, element: <Navigate to="dashboard" /> },
             { path: 'dashboard', element: <AdminDashboard /> },
@@ -89,6 +99,7 @@ function App() {
       ]
     }
   ]);
+
 
   return (
     <div className="App">

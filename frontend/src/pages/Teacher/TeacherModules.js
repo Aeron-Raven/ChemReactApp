@@ -61,8 +61,6 @@ const StudentModules = () => {
     return (
         <div className="student-modules">
             {tests && tests.map((test, index) => {
-                const module = user.modules?.find(mod => mod.moduleID === test._id);
-
                 return (
                     <div className="module-list" key={index}>
                         <table className="table is-fullwidth is-bordered is-hoverable">
@@ -72,7 +70,7 @@ const StudentModules = () => {
                                         <h1>{test.title}</h1>
                                     </td>
                                     <td className='has-text-right'>
-                                        <h2>Score: <span className='title is-4'>{module?.score ?? '0'}</span>/20</h2>
+                                        <h2>Up to: <span className='title is-4'>20</span></h2>
                                     </td>
                                 </tr>
                             </tbody>

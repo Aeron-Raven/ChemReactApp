@@ -1,8 +1,10 @@
 import { useState } from 'react'
 import { useAddUser } from '../hooks/useAddUser'
+import { useAuthContext } from '../hooks/useAuthContext'
 
 const Signup = ({ closeModal }) => {
 
+    const { user } = useAuthContext();
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
@@ -33,7 +35,14 @@ const Signup = ({ closeModal }) => {
         }
         setEmptyFields([]);
 
-        await adduser(name, email, userfield, password);
+        let createdby;
+        if (user.userfield === 'admin') {
+            createdby = 'Admin';
+        } else {
+            createdby = user.name;
+        }
+
+        await adduser(name, email, userfield, password, createdby);
 
         closeModal();
     };
@@ -43,7 +52,7 @@ const Signup = ({ closeModal }) => {
             <div className="select is-link is-rounded">
                 <select value={userfield} onChange={(e) => setUserField(e.target.value)}>
                     <option value="student">Student</option>
-                    <option value="teacher">Teacher</option>
+                    {(user.userfield === 'admin') && <option value="teacher">Teacher</option>}
                 </select>
             </div>
             <div className="field">

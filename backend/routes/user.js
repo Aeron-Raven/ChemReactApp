@@ -8,13 +8,13 @@ const router = express.Router()
 
 // Login Route
 router.post('/login', loginUser)
-// Registration Route
-router.post('/signup', signupUser)
 
 // Forgot Password Route
 router.post('/forgotpassword', forgotPassword)
 
 router.use(requireAuth)
+// Registration Route
+router.post('/signup', signupUser)
 // Add Score
 router.patch('/addscore/:id', addUserScore)
 // Admin

@@ -23,6 +23,10 @@ const userSchema = new Schema({
         type: String,
         required: true
     },
+    createdby:{
+        type: String,
+        required: true
+    },
     modules: [{
         moduleID: String,
         isFinished: Boolean,
@@ -30,9 +34,9 @@ const userSchema = new Schema({
     }],
     resetPasswordToken: String,
     resetPasswordExpiresAt: Date,
-})
+}, { timestamps: true })
 // Static Signup method
-userSchema.statics.signup = async function (name, email, userfield, password) {
+userSchema.statics.signup = async function (name, email, userfield, password, createdby) {
 
     // validation
     if (!name || !email || !password) {
@@ -55,7 +59,7 @@ userSchema.statics.signup = async function (name, email, userfield, password) {
     const salt = await bcrypt.genSalt(10)
     const hash = await bcrypt.hash(password, salt)
 
-    const user = await this.create({ name, email, userfield, password: hash, })
+    const user = await this.create({ name, email, userfield, password: hash, createdby})
 
     return user
 }
@@ -138,7 +142,7 @@ userSchema.statics.addscore = async function (id, moduleData) {
 
         if (existingModule) {
             // Update existing module data
-            existingModuzle.isFinished = moduleData.isFinished;
+            existingModule.isFinished = moduleData.isFinished;
             existingModule.score = moduleData.score;
             user.markModified("modules");
         } else {

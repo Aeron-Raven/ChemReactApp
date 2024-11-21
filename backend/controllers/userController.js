@@ -11,15 +11,12 @@ const createAdminToken = (_id) => {
     return jwt.sign({ _id }, process.env.SECRET, { expiresIn: '6h' })
 }
 const signupUser = async (req, res) => {
-    const { name, email, userfield, password } = req.body
+    const { name, email, userfield, password, createdby } = req.body
 
     try {
-        const user = await User.signup(name, email, userfield, password)
+        const user = await User.signup(name, email, userfield, password, createdby)
 
-        // Auth token
-        const token = createToken(user._id)
-
-        res.status(200).json({ name, email, token })
+        res.status(200).json({ name, email, createdby })
     } catch (error) {
         res.status(400).json({ error: error.message })
     }
@@ -32,11 +29,12 @@ const loginUser = async (req, res) => {
 
         const name = user.name
         const userfield = user.userfield
+        const modules = user.modules
 
         // Auth token
         const token = createToken(user._id)
 
-        res.status(200).json({ name, email, userfield, token })
+        res.status(200).json({ name, email, userfield, token, modules})
     } catch (error) {
         res.status(400).json({ error: error.message })
     }
@@ -93,11 +91,12 @@ const adminLogin = async (req, res) => {
         }
 
         const userfield = 'admin'
+        const createdby = 'Admin'
 
         // Auth token
         const token = createAdminToken(process.env.ADMIN_TOKEN);
 
-        res.status(200).json({ name, userfield, token })
+        res.status(200).json({ name, userfield, token, createdby})
     } catch (error) {
         res.status(400).json({ error: error.message })
     }
@@ -126,32 +125,40 @@ const deleteUser = async (req, res) => {
 const patchUser = async (req, res) => {
     const { id } = req.params
     const { name, email, userfield } = req.body
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-        return res.status(404).json({ error: 'User doesn\'t exist' })
+    try {
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            return res.status(404).json({ error: 'User doesn\'t exist' })
+        }
+
+        const user = await User.updateuser(id, name, email, userfield)
+
+        if (!user) {
+            return res.status(400).json({ error: 'User doesn\'t exist' })
+        }
+
+        res.status(200).json(user)
+    } catch (error) {
+        res.status(400).json({ error: `An error occurred. ${error.message}` })
     }
-
-    const user = await User.updateuser(id, name, email, userfield)
-
-    if (!user) {
-        return res.status(400).json({ error: 'User doesn\'t exist' })
-    }
-
-    res.status(200).json(user)
 }
 const addUserScore = async (req, res) => {
     const { id } = req.params
     const { modules } = req.body
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-        return res.status(404).json({ error: 'User doesn\'t exist' })
+    try {
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            return res.status(404).json({ error: 'User doesn\'t exist' })
+        }
+
+        const user = await User.addscore(id, modules)
+
+        if (!user) {
+            return res.status(400).json({ error: 'User doesn\'t exist' })
+        }
+
+        res.status(200).json(user)
+    } catch (error) {
+        res.status(400).json({ error: `An error occurred. ${error.message}` })
     }
-
-    const user = await User.addscore(id, modules)
-
-    if (!user) {
-        return res.status(400).json({ error: 'User doesn\'t exist' })
-    }
-
-    res.status(200).json(user)
 }
 module.exports = {
     loginUser,

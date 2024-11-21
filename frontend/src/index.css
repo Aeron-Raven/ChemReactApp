@@ -261,6 +261,7 @@ body {
   }
   /* Admin css */
   .admin-page,
+  .teacher-page,
   .student-page {
     width: 100%;
     height: 100vh;
@@ -270,6 +271,7 @@ body {
     width: 27.69%;
   }
   .admin-navbar,
+  .teacher-navbar,
   .student-navbar {
     position: fixed;
     margin-left: 2em;
@@ -288,6 +290,7 @@ body {
     padding: 1rem;
   }
   .admin-header,
+  .teacher-header,
   .student-header {
     width: 100%;
   }
@@ -299,7 +302,10 @@ body {
   .admin-modules,
   .student-users,
   .student-dashboard,
-  .student-modules {
+  .student-modules,
+  .teacher-users,
+  .teacher-dashboard,
+  .teacher-modules {
     height: fit-content;
     margin: 2em;
   }
@@ -399,7 +405,8 @@ body {
   }
 
   .admin-page,
-  .student-page {
+  .student-page,
+  .teacher-page {
     flex-direction: column; /* Stack content */
   }
 
@@ -415,7 +422,7 @@ body {
   .module-list td button {
     width: auto; /* Allow buttons to shrink */
   }
-  .card-right{
+  .card-right {
     display: none;
   }
 }

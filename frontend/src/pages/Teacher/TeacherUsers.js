@@ -7,7 +7,7 @@ import { useAuthContext } from "../../hooks/useAuthContext";
 import { URL } from "../../App";
 import { format } from 'date-fns';
 
-const AdminUsers = () => {
+const TeacherUsers = () => {
     const { users, dispatch } = useUsersContext();
     const { user } = useAuthContext();
 
@@ -119,7 +119,7 @@ const AdminUsers = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {users && users.map((eachUser, index) => (
+                        {users && users.filter(eachUser => eachUser.userfield === 'student').map((eachUser, index) => (
                             <tr key={index} className="is-clickable">
                                 <td>{eachUser.name}</td>
                                 <td>{eachUser.userfield}</td>
@@ -226,4 +226,4 @@ const AdminUsers = () => {
     );
 };
 
-export default AdminUsers;
+export default TeacherUsers;

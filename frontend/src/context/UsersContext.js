@@ -11,9 +11,13 @@ export const usersReducer = (state, action) => {
                 users: [action.payload, ...state.users]
             }
         case 'CREATE_USER':
+            const newUser = {
+                ...action.payload,
+                createdAt: action.payload.createdAt || new Date()
+            };
             return {
-                users: [action.payload, ...state.users]
-            }
+                users: [newUser, ...state.users]
+            };
         case 'DELETE_USER':
             return {
                 users: state.users.filter((user) => user._id !== action.payload._id)
@@ -26,12 +30,12 @@ export const usersReducer = (state, action) => {
 export const UsersContext = createContext();
 
 export const UsersContextProvider = ({ children }) => {
-        
-    
-    const [state, dispatch] = useReducer(usersReducer, {users: null})
+
+
+    const [state, dispatch] = useReducer(usersReducer, { users: null })
 
     return (
-        <UsersContext.Provider value={{...state, dispatch }}>
+        <UsersContext.Provider value={{ ...state, dispatch }}>
             {children}
         </UsersContext.Provider>
     )

@@ -46,7 +46,9 @@ export const useLogin = () => {
         try {
             const response = await fetch(`${URL}/requests/admin/login`, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: {
+                    'Content-Type': 'application/json',
+                },
                 body: JSON.stringify({ name, password })
             })
             const json = await response.json()
