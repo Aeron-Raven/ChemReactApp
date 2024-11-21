@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useLogin } from '../hooks/useLogin'
 import { Link } from 'react-router-dom'
 import Modal from './Modal'
+import { URL } from '../App'
 
 const Login = () => {
 
@@ -38,7 +39,7 @@ const Login = () => {
             email: emailToBeReset,
         };
         try {
-            const response = await fetch(`/api/user/forgotpassword/`, {
+            const response = await fetch(`${URL}/api/user/forgotpassword/`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
