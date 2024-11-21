@@ -119,7 +119,17 @@ const AdminUsers = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {users && users.map((eachUser, index) => (
+                        {/* Display loading indicator */}
+                        {isLoading && (
+                            <tr>
+                                <td colSpan="5" className="has-text-centered">
+                                    <p>Loading users...</p>
+                                </td>
+                            </tr>
+                        )}
+
+                        {/* Display users if they exist */}
+                        {!isLoading && users?.length > 0 && users.map((eachUser, index) => (
                             <tr key={index} className="is-clickable">
                                 <td>{eachUser.name}</td>
                                 <td>{eachUser.userfield}</td>
@@ -135,6 +145,15 @@ const AdminUsers = () => {
                                 </td>
                             </tr>
                         ))}
+
+                        {/* Display "No users found" message if not loading and no users exist */}
+                        {!isLoading && (!users || users.length === 0) && (
+                            <tr>
+                                <td colSpan="5" className="has-text-centered">
+                                    <p>No users found.</p>
+                                </td>
+                            </tr>
+                        )}
                     </tbody>
                 </table>
             </div>

@@ -55,7 +55,7 @@ const EditUser = ({ selectedUser, closeModal, confirmPassResetModal }) => {
             <div className="select is-link is-rounded">
                 <select value={userfield} onChange={(e) => setUserField(e.target.value)}>
                     <option value="student">Student</option>
-                    <option value="teacher">Teacher</option>
+                    {(user.userfield === 'admin') && <option value="teacher">Teacher</option>}
                 </select>
             </div>
             <div className="field">

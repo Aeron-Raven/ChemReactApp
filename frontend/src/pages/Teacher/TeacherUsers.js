@@ -119,22 +119,37 @@ const TeacherUsers = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {users && users.filter(eachUser => eachUser.userfield === 'student').map((eachUser, index) => (
-                            <tr key={index} className="is-clickable">
-                                <td>{eachUser.name}</td>
-                                <td>{eachUser.userfield}</td>
-                                <td>{eachUser.createdby}</td>
-                                <td>{format(new Date(eachUser.createdAt), 'MMM d, yyyy, hh:mm:ss a')}</td>
-                                <td className="has-text-right">
-                                    <button className="button is-info" onClick={() => handleEditUserModal(eachUser)}>
-                                        Edit User
-                                    </button>
-                                    <button className="button is-danger" onClick={() => handleDeleteUserModal(eachUser)}>
-                                        Remove User
-                                    </button>
-                                </td>
+                        {users ? (
+                            users.filter(eachUser => eachUser.userfield === 'student' && eachUser.createdby === user.name).length > 0 ? (
+                                users
+                                    .filter(eachUser => eachUser.userfield === 'student' && eachUser.createdby === user.name)
+                                    .map((eachUser, index) => (
+                                        <tr key={index} className="is-clickable">
+                                            <td>{eachUser.name}</td>
+                                            <td>{eachUser.userfield}</td>
+                                            <td>{eachUser.createdby}</td>
+                                            <td>{format(new Date(eachUser.createdAt), 'MMM d, yyyy, hh:mm:ss a')}</td>
+                                            <td className="has-text-right">
+                                                <button className="button is-info" onClick={() => handleEditUserModal(eachUser)}>
+                                                    Edit User
+                                                </button>
+                                                <button className="button is-danger" onClick={() => handleDeleteUserModal(eachUser)}>
+                                                    Remove User
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    ))
+                            ) : (
+                                <tr>
+                                    <td colSpan="5" className="has-text-centered">No users found.</td>
+                                </tr>
+                            )
+                        ) : (
+                            <tr>
+                                <td colSpan="5" className="has-text-centered">Loading users...</td>
                             </tr>
-                        ))}
+                        )}
+
                     </tbody>
                 </table>
             </div>
