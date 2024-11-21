@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useUsersContext } from './useUsersContext'
+import { URL } from '../App'
 
 export const useAddUser = () => {
 
@@ -11,7 +12,7 @@ export const useAddUser = () => {
         setIsLoading(true)
         setError(null)
 
-        const response = await fetch('/api/user/signup', {
+        const response = await fetch(`${URL}/api/user/signup`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ name, email, userfield, password })

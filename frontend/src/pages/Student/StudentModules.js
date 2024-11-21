@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useModulesContext } from '../../hooks/useModulesContext';
 import { useAuthContext } from '../../hooks/useAuthContext';
+import { URL } from '../../App';
 
 import Modal from '../../components/Modal';
 import TestDetailsBody from '../../components/Admin/modalinfo/TestDetailsBody';
@@ -12,7 +13,7 @@ const StudentModules = () => {
     // Fetch tests
     useEffect(() => {
         const fetchTests = async () => {
-            const response = await fetch('/api/testModules', {
+            const response = await fetch(`${URL}/api/testModules`, {
                 method: 'GET',
                 headers: {
                     'Authorization': `Bearer ${user.token}`

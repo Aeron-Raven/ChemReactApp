@@ -4,6 +4,7 @@ import Signup from "../../components/AddUser";
 import EditUser from "../../components/EditUser";
 import { useUsersContext } from '../../hooks/useUsersContext';
 import { useAuthContext } from "../../hooks/useAuthContext";
+import { URL } from "../../App";
 
 const AdminUsers = () => {
     const { users, dispatch } = useUsersContext();
@@ -41,7 +42,7 @@ const AdminUsers = () => {
             email: selectedUser.email,
         };
         try {
-            const response = await fetch(`/api/user/forgotpassword/`, {
+            const response = await fetch(`${URL}/api/user/forgotpassword/`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

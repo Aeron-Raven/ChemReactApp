@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
+import { URL } from "../App";
 
 const ResetPass = () => {
     const { token } = useParams(); // Extract the token from the URL
@@ -20,7 +21,7 @@ const ResetPass = () => {
         }
         try {
             console.log(token)
-            const response = await fetch(`/requests/reset-password/${token}`, {
+            const response = await fetch(`${URL}/requests/reset-password/${token}`, {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',

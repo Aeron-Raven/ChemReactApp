@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuthContext } from '../hooks/useAuthContext';
+import { URL } from '../App';
 
 const EditUser = ({ selectedUser, closeModal, confirmPassResetModal }) => {
     const { user } = useAuthContext();
@@ -29,7 +30,7 @@ const EditUser = ({ selectedUser, closeModal, confirmPassResetModal }) => {
         setIsLoading(true);
 
         // Perform PATCH request
-        const response = await fetch(`/api/user/updateuser/${selectedUser._id}`, {
+        const response = await fetch(`${URL}/api/user/updateuser/${selectedUser._id}`, {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json',

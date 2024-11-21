@@ -44,7 +44,7 @@ export const useLogin = () => {
         setIsLoading(true)
         setError(null)
         try {
-            const response = await fetch('/requests/admin/login', {
+            const response = await fetch(`${URL}/requests/admin/login`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ name, password })

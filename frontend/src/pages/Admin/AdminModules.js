@@ -2,6 +2,7 @@ import { useState, useEffect, useReducer } from 'react';
 import { useModulesContext } from '../../hooks/useModulesContext';
 import Modal from '../../components/Modal';
 import { useAuthContext } from '../../hooks/useAuthContext';
+import { URL } from '../../App';
 
 // Modal Bodies
 import TestDetailsBody from '../../components/Admin/modalinfo/TestDetailsBody';
@@ -17,7 +18,7 @@ const AdminModules = () => {
     // Fetch tests
     useEffect(() => {
         const fetchTests = async () => {
-            const response = await fetch('/api/testModules', {
+            const response = await fetch(`${URL}/api/testModules`, {
                 method: 'GET',
                 headers: {
                     'Authorization': `Bearer ${user.token}`
@@ -120,7 +121,7 @@ const AdminModules = () => {
             over: questions.length
         };
         try {
-            const response = await fetch(`/api/testModules/${selectedTest._id}`, {
+            const response = await fetch(`${URL}/api/testModules/${selectedTest._id}`, {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',
@@ -152,7 +153,7 @@ const AdminModules = () => {
             })),
             over: questions.length
         };
-        const response = await fetch('/api/testModules/', {
+        const response = await fetch(`${URL}/api/testModules/`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
