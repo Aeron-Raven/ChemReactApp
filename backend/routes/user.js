@@ -16,7 +16,7 @@ router.use(requireAuth)
 // Registration Route
 router.post('/signup', signupUser)
 // Add Score
-router.patch('/addscore/:id', addUserScore)
+router.patch('/addscore/:token', addUserScore)
 // Admin
 router.get('/getusers', getUsers)
 router.delete('/removeuser/:id', deleteUser)
