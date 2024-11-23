@@ -29,25 +29,7 @@ const StudentModules = () => {
         }
     }, [user, dispatch]);
 
-    const initialModalState = {
-        testModalVisible: false,
-    };
-
-    // Reducer function to manage modal state
-    const modalReducer = (state, action) => {
-        switch (action.type) {
-            case 'OPEN_MODAL':
-                return { ...state, [action.modal]: true };
-            case 'CLOSE_MODAL':
-                return { ...state, [action.modal]: false };
-            case 'CLOSE_ALL_MODALS':
-                return initialModalState;
-            default:
-                return state;
-        }
-    };
-
-    const [modalState, modalDispatch] = useState(initialModalState);
+    const [testModalVisible, setTestModalVisible] = useState(false);
 
     // Module Form States
     const [selectedTest, setSelectedTest] = useState(null);
@@ -55,7 +37,7 @@ const StudentModules = () => {
 
     const handleOpenTestModal = (test) => {
         setSelectedTest(test);
-        modalDispatch({ type: 'OPEN_MODAL', modal: 'testModalVisible' });
+        setTestModalVisible(true);
     };
 
     return (
@@ -78,13 +60,13 @@ const StudentModules = () => {
                     </div>
                 );
             })}
-            {selectedTest && modalState.testModalVisible && (
+            {selectedTest && testModalVisible && (
                 <Modal
-                    click={modalState.testModalVisible}
-                    setClick={() => modalDispatch({ type: 'CLOSE_MODAL', modal: 'testModalVisible' })}
+                    click={testModalVisible}
+                    setClick={setTestModalVisible}
                     header={selectedTest.title}
                     body={<TestDetailsBody test={selectedTest} />}
-                    footer={<button className="button" onClick={() => modalDispatch({ type: 'CLOSE_MODAL', modal: 'testModalVisible' })}>Close</button>}
+                    footer={<button className="button" onClick={() => setTestModalVisible(false)}>Close</button>}
                 />
             )}
         </div>

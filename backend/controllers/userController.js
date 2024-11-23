@@ -142,14 +142,17 @@ const patchUser = async (req, res) => {
     }
 }
 const addUserScore = async (req, res) => {
-    const { id } = req.params
+    const { token } = req.params
     const { modules } = req.body
     try {
-        if (!mongoose.Types.ObjectId.isValid(id)) {
+
+        const { _id } = jwt.verify(token, process.env.SECRET)
+        
+        if (!mongoose.Types.ObjectId.isValid(_id)) {
             return res.status(404).json({ error: 'User doesn\'t exist' })
         }
-
-        const user = await User.addscore(id, modules)
+        
+        const user = await User.addscore(_id, modules)
 
         if (!user) {
             return res.status(400).json({ error: 'User doesn\'t exist' })
