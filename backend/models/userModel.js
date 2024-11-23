@@ -23,15 +23,17 @@ const userSchema = new Schema({
         type: String,
         required: true
     },
-    createdby:{
+    createdby: {
         type: String,
         required: true
     },
-    modules: [{
-        moduleID: String,
-        isFinished: Boolean,
-        score: Number
-    }],
+    modules: [
+        {
+            moduleID: String,
+            isFinished: Boolean,
+            score: Number
+        }
+    ],
     resetPasswordToken: String,
     resetPasswordExpiresAt: Date,
 }, { timestamps: true })
@@ -59,7 +61,7 @@ userSchema.statics.signup = async function (name, email, userfield, password, cr
     const salt = await bcrypt.genSalt(10)
     const hash = await bcrypt.hash(password, salt)
 
-    const user = await this.create({ name, email, userfield, password: hash, createdby})
+    const user = await this.create({ name, email, userfield, password: hash, createdby })
 
     return user
 }
@@ -127,7 +129,7 @@ userSchema.statics.updateuser = async function (id, name, email, userfield) {
 
     return user
 }
-userSchema.statics.addscore = async function (id, moduleData) {
+userSchema.statics.addscore = async function (id, modules) {
     try {
         // Find the user by ID
         const user = await this.findOne({ _id: id });
@@ -135,28 +137,32 @@ userSchema.statics.addscore = async function (id, moduleData) {
             throw Error('User not found');
         }
 
-        // Check if the module already exists
-        const existingModule = user.modules.find(
-            (module) => module.moduleID === moduleData.moduleID
-        );
+        // Process each module in the modules array
+        modules.forEach((moduleData) => {
+            // Check if the module already exists
+            const existingModule = user.modules.find(
+                (module) => module.moduleID === moduleData.moduleID
+            );
 
-        if (existingModule) {
-            // Update existing module data
-            existingModule.isFinished = moduleData.isFinished;
-            existingModule.score = moduleData.score;
-            user.markModified("modules");
-        } else {
-            // Add new module data
-            user.modules.push(moduleData);
-        }
+            if (existingModule) {
+                // Update existing module data
+                existingModule.isFinished = moduleData.isFinished;
+                existingModule.score = moduleData.score;
+            } else {
+                // Add new module data
+                user.modules.push(moduleData);
+            }
+        });
 
         // Save the updated user document
+        user.markModified("modules");
         await user.save();
         return user;
     } catch (error) {
         throw Error('An Error Occurred. ' + error.message);
     }
 };
+
 
 
 module.exports = mongoose.model('User', userSchema)

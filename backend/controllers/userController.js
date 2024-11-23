@@ -142,29 +142,28 @@ const patchUser = async (req, res) => {
     }
 }
 const addUserScore = async (req, res) => {
-    const { token } = req.params
-    const { modules } = req.body
+    const { token } = req.params;
+    const { modules } = req.body;
 
-    console.log(token);
     try {
-        
-        const { _id } = jwt.verify(token, process.env.SECRET)
-        
+        const { _id } = jwt.verify(token, process.env.SECRET);
+
         if (!mongoose.Types.ObjectId.isValid(_id)) {
-            return res.status(404).json({ error: 'User doesn\'t exist' })
+            return res.status(404).json({ error: "User doesn't exist" });
         }
 
-        const user = await User.addscore(_id, modules)
+        const user = await User.addscore(_id, modules);
 
         if (!user) {
-            return res.status(400).json({ error: 'User doesn\'t exist' })
+            return res.status(400).json({ error: "User doesn't exist" });
         }
 
-        res.status(200).json(user)
+        res.status(200).json(user);
     } catch (error) {
-        res.status(400).json({ error: `An error occurred. ${error.message}` })
+        res.status(400).json({ error: `An error occurred. ${error.message}` });
     }
-}
+};
+
 module.exports = {
     loginUser,
     signupUser,
