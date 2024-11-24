@@ -171,16 +171,21 @@ const AdminModules = () => {
     };
 
     const handleDeleteTest = async (selectedId) => {
-        const response = await fetch(`/api/testModules/${selectedId}`, {
-            method: 'DELETE',
-            headers: {
-                'Authorization': `Bearer ${user.token}`
+        try {
+            const response = await fetch(`/api/testModules/${selectedId}`, {
+                method: 'DELETE',
+                headers: {
+                    'Authorization': `Bearer ${user.token}`
+                }
+            });
+            const json = await response.json();
+            if (response.ok) {
+                dispatch({ type: 'DELETE_TEST', payload: json });
+                modalDispatch({ type: 'CLOSE_MODAL', modal: 'deleteTestModalVisible' });
             }
-        });
-        const json = await response.json();
-        if (response.ok) {
-            dispatch({ type: 'DELETE_TEST', payload: json });
-            modalDispatch({ type: 'CLOSE_MODAL', modal: 'deleteTestModalVisible' });
+        }
+        catch (error) {
+            console.log(`Error occurred, ${error.message}`)
         }
     };
 
