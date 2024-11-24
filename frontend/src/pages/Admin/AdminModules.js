@@ -172,7 +172,7 @@ const AdminModules = () => {
 
     const handleDeleteTest = async (selectedId) => {
         try {
-            const response = await fetch(`/api/testModules/${selectedId}`, {
+            const response = await fetch(`${URL}/api/testModules/${selectedId}`, {
                 method: 'DELETE',
                 headers: {
                     'Authorization': `Bearer ${user.token}`
