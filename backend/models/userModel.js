@@ -29,9 +29,16 @@ const userSchema = new Schema({
     },
     modules: [
         {
-            moduleID: String,
-            isFinished: Boolean,
-            score: Number
+            moduleID: { type: String, required: true },
+            isFinished: { type: Boolean, default: false },
+            score: { type: Number, required: true },
+            userAnswers: [
+                {
+                    questionText: { type: String, required: true },
+                    userAnswer: { type: String, required: true },
+                    correctAnswer: { type: String }
+                }
+            ]
         }
     ],
     resetPasswordToken: String,
