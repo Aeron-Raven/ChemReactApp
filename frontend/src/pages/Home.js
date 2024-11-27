@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
 import chemapp1 from '../assets/chemapp1.jpg'
-import chemtool from '../assets/ChemToolVision_v1.0.4.apk'
 import pic1 from '../assets/pic1.jpg';
 import gif1 from '../assets/Mortar and pesl.gif';
 
@@ -66,7 +65,7 @@ const Home = () => {
                     <h1 className="title is-1">Download the APK now!
                         <div className="subtitle">Only supports Android Version 9 and above.</div>
                     </h1>
-                    <a href={chemtool} download="ChemToolVision.apk" target='_blank' rel='noreferrer' className="button is-link">Download</a>
+                    <a href="https://github.com/Aeron-Raven/ChemReactApp/releases/download/APK/ChemToolVision_v1.0.4.apk" download="ChemToolVision.apk" target='_blank' rel='noreferrer' className="button is-link">Download</a>
                     <table className="table is-fullwidth is-bordered">
                         <thead>
                             <tr>
