@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import { useLogout } from '../hooks/useLogout';
 import { useAuthContext } from '../hooks/useAuthContext';
 import { useState } from 'react';
+import chemlogo from '../assets/ChemToolVisionLogo.png';
 
 const Navbar = () => {
     const { logout } = useLogout()
@@ -23,7 +24,7 @@ const Navbar = () => {
     return (
         <nav className="navbar fade-animate">
             <div className="logo">
-                <img src="https://placehold.co/1920x1080" alt="Logo" />
+                <img src={chemlogo} alt="Logo" />
             </div>
             <div className="menu-container">
                 <Link to="/">

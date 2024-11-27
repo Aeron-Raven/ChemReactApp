@@ -13,20 +13,27 @@ import EditModuleBody from '../../components/Admin/modalinfo/EditModuleBody';
 const AdminModules = () => {
     const { tests, dispatch } = useModulesContext();
     const { user } = useAuthContext();
+    const [error, setError] = useState('');
     const choiceLabels = ["A", "B", "C", "D"];
 
     // Fetch tests
     useEffect(() => {
         const fetchTests = async () => {
-            const response = await fetch(`${URL}/api/testModules`, {
-                method: 'GET',
-                headers: {
-                    'Authorization': `Bearer ${user.token}`
+            setError(''); // Reset error before request
+            try {
+                const response = await fetch(`${URL}/api/testModules`, {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${user.token}`
+                    }
+                });
+                const json = await response.json();
+                if (!response.ok) {
+                    throw new Error(json.error || 'Failed to fetch tests');
                 }
-            });
-            const json = await response.json();
-            if (response.ok) {
                 dispatch({ type: 'SET_TESTS', payload: Array.isArray(json) ? json : [] });
+            } catch (error) {
+                setError(error.message || 'Something went wrong');
             }
         };
         if (user) {
@@ -76,7 +83,10 @@ const AdminModules = () => {
     };
 
     const handleProceedToAddQuestions = () => {
-        if (moduleOver > 50 || !moduleName || !moduleOver || moduleNumber > 10 || !moduleNumber) return;
+        if (moduleOver > 50 || !moduleName || !moduleOver || moduleNumber > 10 || !moduleNumber) {
+            setError('Please fill the correct inputs.');
+            return;
+        }
         modalDispatch({ type: 'CLOSE_MODAL', modal: 'addModuleModalVisible' });
         modalDispatch({ type: 'OPEN_MODAL', modal: 'addQuestionsModalVisible' });
         setQuestions(Array.from({ length: moduleOver }, () => ({ question: '', choices: ['', '', '', ''] })));
@@ -111,81 +121,87 @@ const AdminModules = () => {
     };
 
     const confirmSaveChanges = async () => {
-        const moduleData = {
-            title: 'Lesson: ' + moduleNumber + ' ' + moduleName,
-            question: questions.map((q, index) => ({
-                questionText: q.questionText,
-                choices: q.choices,
-                correctAnswer: q.correctAnswer || 'A'
-            })),
-            over: questions.length
-        };
+        setError('');
         try {
+            const moduleData = {
+                title: `Lesson: ${moduleNumber} ${moduleName}`,
+                question: questions.map((q) => ({
+                    questionText: q.questionText,
+                    choices: q.choices,
+                    correctAnswer: q.correctAnswer || 'A',
+                })),
+                over: questions.length,
+            };
             const response = await fetch(`${URL}/api/testModules/${selectedTest._id}`, {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${user.token}`
+                    'Authorization': `Bearer ${user.token}`,
                 },
                 body: JSON.stringify(moduleData),
             });
             const json = await response.json();
-            if (response.ok) {
-                dispatch({ type: 'UPDATE_TEST', payload: json });
-                resetModuleForm();
-                modalDispatch({ type: 'CLOSE_MODAL', modal: 'confirmSaveModalVisible' });
+            if (!response.ok) {
+                throw new Error(json.error || 'Failed to update module');
             }
+            dispatch({ type: 'UPDATE_TEST', payload: json });
+            resetModuleForm();
+            modalDispatch({ type: 'CLOSE_MODAL', modal: 'confirmSaveModalVisible' });
         } catch (error) {
-            console.error(error);
+            setError(error.message || 'Something went wrong');
         }
-
     };
 
     const saveModule = async () => {
         // if (questions.some(q => !q.question.trim() || q.choices.some(choice => !choice.trim()))) return;
-
-        const moduleData = {
-            title: 'Lesson: ' + moduleNumber + ' ' + moduleName,
-            question: questions.map((q, index) => ({
-                questionText: q.questionText,
-                choices: q.choices,
-                correctAnswer: q.correctAnswer || 'A',
-            })),
-            over: questions.length
-        };
-        const response = await fetch(`${URL}/api/testModules/`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${user.token}`
-            },
-            body: JSON.stringify(moduleData),
-        });
-
-        if (response.ok) {
-            const newModule = await response.json();
-            dispatch({ type: 'CREATE_TEST', payload: newModule });
+        setError('');
+        try {
+            const moduleData = {
+                title: `Lesson: ${moduleNumber} ${moduleName}`,
+                question: questions.map((q) => ({
+                    questionText: q.questionText,
+                    choices: q.choices,
+                    correctAnswer: q.correctAnswer || 'A',
+                })),
+                over: questions.length,
+            };
+            const response = await fetch(`${URL}/api/testModules/`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${user.token}`,
+                },
+                body: JSON.stringify(moduleData),
+            });
+            const json = await response.json();
+            if (!response.ok) {
+                throw new Error(json.error || 'Failed to save module');
+            }
+            dispatch({ type: 'CREATE_TEST', payload: json });
             resetModuleForm();
             modalDispatch({ type: 'CLOSE_MODAL', modal: 'addQuestionsModalVisible' });
+        } catch (error) {
+            setError(error.message || 'Something went wrong');
         }
     };
 
     const handleDeleteTest = async (selectedId) => {
+        setError('');
         try {
             const response = await fetch(`${URL}/api/testModules/${selectedId}`, {
                 method: 'DELETE',
                 headers: {
-                    'Authorization': `Bearer ${user.token}`
-                }
+                    'Authorization': `Bearer ${user.token}`,
+                },
             });
             const json = await response.json();
-            if (response.ok) {
-                dispatch({ type: 'DELETE_TEST', payload: json });
-                modalDispatch({ type: 'CLOSE_MODAL', modal: 'deleteTestModalVisible' });
+            if (!response.ok) {
+                throw new Error(json.error || 'Failed to delete module');
             }
-        }
-        catch (error) {
-            console.log(`Error occurred, ${error.message}`)
+            dispatch({ type: 'DELETE_TEST', payload: json });
+            modalDispatch({ type: 'CLOSE_MODAL', modal: 'deleteTestModalVisible' });
+        } catch (error) {
+            setError(error.message || 'Something went wrong');
         }
     };
 
@@ -234,7 +250,7 @@ const AdminModules = () => {
                     click={modalState.addModuleModalVisible}
                     setClick={() => modalDispatch({ type: 'CLOSE_MODAL', modal: 'addModuleModalVisible' })}
                     header="Add New Module"
-                    body={<AddModuleBody moduleName={moduleName} setModuleName={setModuleName} moduleOver={moduleOver} setModuleOver={setModuleOver} moduleNumber={moduleNumber} setModuleNumber={setModuleNumber} />}
+                    body={<AddModuleBody error={error} setError={setError} moduleName={moduleName} setModuleName={setModuleName} moduleOver={moduleOver} setModuleOver={setModuleOver} moduleNumber={moduleNumber} setModuleNumber={setModuleNumber} />}
                     footer={
                         <div className='modal-card-foot'>
                             <button className="button is-success" onClick={handleProceedToAddQuestions}>Proceed</button>

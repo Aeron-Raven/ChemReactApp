@@ -87,6 +87,14 @@ const Signup = ({ closeModal }) => {
                         onChange={(e) => setPassword(e.target.value)} value={password} />
                 </div>
             </div>
+            <div className="field note">
+                <p>A user password must at least contain the following:</p>
+                <ul>
+                    <li>More than 8 characters</li>
+                    <li>1 uppercase letter</li>
+                    <li>1 lowercase letter</li>
+                </ul>
+            </div>
             {emptyFields.includes('password') && <div className='error'>Please enter a password.</div>}
             <div className="field">
                 <label className="label">Confirm Password</label>

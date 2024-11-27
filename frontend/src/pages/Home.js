@@ -1,5 +1,8 @@
 import { useEffect } from 'react';
 import chemapp1 from '../assets/chemapp1.jpg'
+import chemtool from '../assets/ChemToolVision_v1.0.2.apk'
+import pic1 from '../assets/pic1.jpg';
+import gif1 from '../assets/Mortar and pesl.gif';
 
 const Home = () => {
     useEffect(() => {
@@ -35,13 +38,13 @@ const Home = () => {
                         <p>Understand how chemistry tools work with the power of Augmented Reality Technology</p>
                     </div>
                     <div className="starthide startright box-container-2 fade-animate">
-                        <img src="https://placehold.co/1920x1080" alt="" className="starthide ui rounded image" />
+                        <img src={gif1} alt="" className="starthide ui rounded image" />
                     </div>
                 </div>
                 <div id="aboutus"></div>
                 <div className="box-wrapper">
                     <div className="starthide startleft box-container-2 fade-animate">
-                        <img src="https://placehold.co/1920x1080" alt="" className="starthide ui rounded image" />
+                        <img src={pic1} alt="" className="starthide ui rounded image" />
                     </div>
                     <div className="box-container-1">
                         <h1 className="title is-3">Why are we doing this?</h1>
@@ -63,7 +66,7 @@ const Home = () => {
                     <h1 className="title is-1">Download the APK now!
                         <div className="subtitle">Only supports Android Version 9 and above.</div>
                     </h1>
-                    <button onClick={() => console.log('downloaded ahha')} className="button is-link">Download</button>
+                    <a href={chemtool} download="ChemToolVision.apk" target='_blank' rel='noreferrer'><button className="button is-link">Download</button></a>
                     <table className="table is-fullwidth is-bordered">
                         <thead>
                             <tr>

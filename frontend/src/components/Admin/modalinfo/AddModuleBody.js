@@ -1,4 +1,4 @@
-const AddModuleBody = ({ moduleName, setModuleName, moduleOver, setModuleOver, moduleNumber, setModuleNumber }) => (
+const AddModuleBody = ({ error, setError, moduleName, setModuleName, moduleOver, setModuleOver, moduleNumber, setModuleNumber }) => (
     <form>
         <div className="field has-addons">
             <p className="control">
@@ -23,6 +23,8 @@ const AddModuleBody = ({ moduleName, setModuleName, moduleOver, setModuleOver, m
                     value={moduleOver} onChange={(e) => setModuleOver(e.target.value)} />
             </div>
         </div>
+        {error && <div className="error">{error}</div>}
+
     </form>
 );
 

@@ -244,12 +244,58 @@ body {
     margin-right: 3em;
   }
   .card-right {
+    position: relative;
     width: 100%;
+    overflow: hidden;
     background-color: #f0f0f0f0;
-  }
-  .card-right img {
+}
+
+.card-right img {
     object-fit: cover;
-  }
+}
+
+@keyframes fadeAnimation {
+    0%, 20% {
+        opacity: 1; /* Image fully visible */
+    }
+    30%, 100% {
+        opacity: 0; /* Image fades out and remains hidden */
+    }
+}
+
+.fade-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  object-fit: cover;
+  opacity: 0; /* Ensure initial state is invisible */
+  animation: fadeAnimation 9s infinite;
+  animation-fill-mode: forwards; /* Persist animation state */
+}
+
+
+.fade-image:nth-child(1) {
+    animation-delay: 0s; /* Starts immediately */
+}
+
+.fade-image:nth-child(2) {
+    animation-delay: 3s; /* Starts during the fade-out of the first image */
+}
+
+.fade-image:nth-child(3) {
+    animation-delay: 6s; /* Starts during the fade-out of the second image */
+}
+
+.note{
+  list-style: circle;
+  background-color: #c8c8c8f0;
+  border-radius: 5px;
+  padding: 1em;
+}
+
+
+
   /* User Logged in */
   .nav-user-container {
     display: flex;

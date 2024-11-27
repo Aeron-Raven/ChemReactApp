@@ -182,6 +182,4 @@ userSchema.statics.addscore = async function (id, modules) {
 };
 
 
-
-
 module.exports = mongoose.model('User', userSchema)

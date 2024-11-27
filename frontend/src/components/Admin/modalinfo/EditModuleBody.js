@@ -1,4 +1,4 @@
-const EditQuestionsBody = ({ questions, setQuestions, choiceLabels, moduleName, setModuleName, moduleNumber, setModuleNumber }) => {
+const EditQuestionsBody = ({ error, setError, questions, setQuestions, choiceLabels, moduleName, setModuleName, moduleNumber, setModuleNumber }) => {
 
     const handleQuestionChange = (index, value) => {
         const updatedQuestions = [...questions];
