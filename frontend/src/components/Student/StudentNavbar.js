@@ -51,7 +51,7 @@ const StudentNavbar = () => {
             </ul>
             <p className="menu-label p-2">Utilities</p>
             <ul className="menu-list">
-                <li><Link onClick={() => setClick(true)}>Logout</Link></li>
+                <li><button onClick={() => setClick(true)}>Logout</button></li>
             </ul>
             <Modal
                 click={click} setClick={setClick}
