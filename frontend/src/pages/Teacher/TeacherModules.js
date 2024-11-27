@@ -5,6 +5,7 @@ import { URL } from '../../App';
 
 import Modal from '../../components/Modal';
 import TestDetailsBody from '../../components/Admin/modalinfo/TestDetailsBody';
+import printJS from 'print-js';
 
 const StudentModules = () => {
     const { tests, dispatch } = useModulesContext();
@@ -34,10 +35,24 @@ const StudentModules = () => {
     // Module Form States
     const [selectedTest, setSelectedTest] = useState(null);
 
-
     const handleOpenTestModal = (test) => {
         setSelectedTest(test);
         setTestModalVisible(true);
+    };
+
+    const handlePrintDetails = (elementId) => {
+        printJS({
+            printable: elementId, // Dynamically use the passed ID
+            type: 'html',
+            style: `
+                .modal-card-body {
+                    font-size: 18px;
+                    line-height: 1.5;
+                    margin: 0;
+                    padding: 2;
+                }
+            `, // Custom styles (optional)
+        });
     };
 
     return (
@@ -66,7 +81,12 @@ const StudentModules = () => {
                     setClick={setTestModalVisible}
                     header={selectedTest.title}
                     body={<TestDetailsBody test={selectedTest} />}
-                    footer={<button className="button" onClick={() => setTestModalVisible(false)}>Close</button>}
+                    footer={
+                        <div className='modal-card-foot'>
+                            <button className="button is-info mr-3" onClick={() => handlePrintDetails('test-details')}>Print details</button>
+                            <button className="button" onClick={() => setTestModalVisible(false)}>Close</button>
+                        </div>
+                        }
                 />
             )}
         </div>

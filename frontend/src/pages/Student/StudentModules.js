@@ -1,10 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useReducer } from 'react';
 import { useModulesContext } from '../../hooks/useModulesContext';
 import { useAuthContext } from '../../hooks/useAuthContext';
 import { URL } from '../../App';
 
 import Modal from '../../components/Modal';
-import TestDetailsBody from '../../components/Admin/modalinfo/TestDetailsBody';
+import StudentScoreDetailsBody from '../../components/Student/modalinfo/StudentScoreDetailsBody';
+import printJS from 'print-js';
 
 const StudentModules = () => {
     const { tests, dispatch } = useModulesContext();
@@ -47,7 +48,7 @@ const StudentModules = () => {
         }
     };
 
-    const [modalState, modalDispatch] = useState(initialModalState);
+    const [modalState, modalDispatch] = useReducer(modalReducer, initialModalState);
 
     // Module Form States
     const [selectedTest, setSelectedTest] = useState(null);
@@ -56,6 +57,21 @@ const StudentModules = () => {
     const handleOpenTestModal = (test) => {
         setSelectedTest(test);
         modalDispatch({ type: 'OPEN_MODAL', modal: 'testModalVisible' });
+    };
+
+    const handlePrintDetails = (elementId) => {
+        printJS({
+            printable: elementId, // Dynamically use the passed ID
+            type: 'html',
+            style: `
+                .modal-card-body {
+                    font-size: 14px;
+                    line-height: 1.5;
+                    margin: 0;
+                    padding: 0;
+                }
+            `, // Custom styles (optional)
+        });
     };
 
     return (
@@ -85,8 +101,12 @@ const StudentModules = () => {
                     click={modalState.testModalVisible}
                     setClick={() => modalDispatch({ type: 'CLOSE_MODAL', modal: 'testModalVisible' })}
                     header={selectedTest.title}
-                    body={<TestDetailsBody test={selectedTest} />}
-                    footer={<button className="button" onClick={() => modalDispatch({ type: 'CLOSE_MODAL', modal: 'testModalVisible' })}>Close</button>}
+                    body={<StudentScoreDetailsBody test={selectedTest} user={user}/>}
+                    footer={
+                        <div className='modal-card-foot'>
+                            <button className="button is-info mr-3" onClick={() => handlePrintDetails('user-score')}>Print details</button>
+                            <button className="button" onClick={() => modalDispatch({ type: 'CLOSE_MODAL', modal: 'testModalVisible' })}>Close</button>
+                        </div>}
                 />
             )}
         </div>

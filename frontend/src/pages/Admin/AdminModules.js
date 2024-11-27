@@ -9,6 +9,7 @@ import TestDetailsBody from '../../components/Admin/modalinfo/TestDetailsBody';
 import AddModuleBody from '../../components/Admin/modalinfo/AddModuleBody';
 import AddQuestionsBody from '../../components/Admin/modalinfo/AddQuestionsBody';
 import EditModuleBody from '../../components/Admin/modalinfo/EditModuleBody';
+import printJS from 'print-js';
 
 const AdminModules = () => {
     const { tests, dispatch } = useModulesContext();
@@ -213,6 +214,22 @@ const AdminModules = () => {
         setQuestions([]);
     };
 
+    const handlePrintDetails = (elementId) => {
+        printJS({
+            printable: elementId, // Dynamically use the passed ID
+            type: 'html',
+            style: `
+                .modal-card-body {
+                    font-size: 14px;
+                    line-height: 1.5;
+                    margin: 0;
+                    padding: 0;
+                }
+            `, // Custom styles (optional)
+        });
+    };
+
+
     return (
         <div className="admin-modules">
             <button className="button is-success" onClick={handleOpenAddModuleModal}>Add Module</button>
@@ -242,7 +259,11 @@ const AdminModules = () => {
                     setClick={() => modalDispatch({ type: 'CLOSE_MODAL', modal: 'testModalVisible' })}
                     header={selectedTest.title}
                     body={<TestDetailsBody test={selectedTest} />}
-                    footer={<button className="button" onClick={() => modalDispatch({ type: 'CLOSE_MODAL', modal: 'testModalVisible' })}>Close</button>}
+                    footer={
+                        <div className='modal-card-foot'>
+                            <button className="button is-info mr-3" onClick={() => handlePrintDetails('test-details')}>Print details</button>
+                            <button className="button" onClick={() => modalDispatch({ type: 'CLOSE_MODAL', modal: 'testModalVisible' })}>Close</button>
+                        </div>}
                 />
             )}
             {modalState.addModuleModalVisible && (

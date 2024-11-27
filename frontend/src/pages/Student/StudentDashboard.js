@@ -1,7 +1,7 @@
 const StudentDashboard = () => {
     return (
         <div className="student-dashboard">
-            <h1>Dashboard</h1>
+            <h1>This page can be extended.</h1>
         </div>
      );
 }

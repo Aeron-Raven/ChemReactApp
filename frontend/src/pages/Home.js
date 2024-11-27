@@ -66,7 +66,7 @@ const Home = () => {
                     <h1 className="title is-1">Download the APK now!
                         <div className="subtitle">Only supports Android Version 9 and above.</div>
                     </h1>
-                    <a href={chemtool} download="ChemToolVision.apk" target='_blank' rel='noreferrer'><button className="button is-link">Download</button></a>
+                    <a href={chemtool} download="ChemToolVision.apk" target='_blank' rel='noreferrer' className="button is-link">Download</a>
                     <table className="table is-fullwidth is-bordered">
                         <thead>
                             <tr>
