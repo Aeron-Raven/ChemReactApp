@@ -13,7 +13,6 @@ const StudentScoreDetailsBody = ({ test, user }) => {
     if (moduleData.userAnswers.length === 0) {
         return <p>You have not answered this module yet!</p>;
     }
-
     return (
         <div id='user-score'>
             {moduleData.userAnswers.map((answerObj, i) => (
