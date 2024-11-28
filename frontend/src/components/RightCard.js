@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import pic1 from '../assets/LoginPic1.png';
 import pic2 from '../assets/LoginPic2.png';
+import pic3 from '../assets/LoginPic3.png';
 
 const RightCard = () => {
   const [imagesLoaded, setImagesLoaded] = useState(false); // Track if all images are loaded
@@ -8,7 +9,7 @@ const RightCard = () => {
   const imageSources = [
     pic1,
     pic2,
-    'https://placehold.co/1920x1080',
+    pic3,
   ];
 
   useEffect(() => {
