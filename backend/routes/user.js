@@ -12,7 +12,7 @@ router.post('/login', loginUser)
 // Forgot Password Route
 router.post('/forgotpassword', forgotPassword)
 
-// router.use(requireAuth)
+router.use(requireAuth)
 // Registration Route
 router.post('/signup', signupUser)
 // Add Score
