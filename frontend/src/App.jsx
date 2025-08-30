@@ -25,7 +25,7 @@ import AdminUsers from './pages/Admin/AdminUsers';
 import { useAuthContext } from './hooks/useAuthContext';
 import AdminLogin from './pages/Admin/AdminLogin';
 
-export const URL = process.env.REACT_APP_API_URL;
+export const URL = import.meta.env.VITE_API_URL;
 
 function pathConditions(pathname) {
   return (

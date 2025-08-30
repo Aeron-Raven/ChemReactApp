@@ -53,7 +53,6 @@ const StudentModules = () => {
     // Module Form States
     const [selectedTest, setSelectedTest] = useState(null);
 
-
     const handleOpenTestModal = (test) => {
         setSelectedTest(test);
         modalDispatch({ type: 'OPEN_MODAL', modal: 'testModalVisible' });
@@ -61,7 +60,7 @@ const StudentModules = () => {
 
     const handlePrintDetails = (elementId) => {
         printJS({
-            printable: elementId, // Dynamically use the passed ID
+            printable: elementId,
             type: 'html',
             style: `
                 .modal-card-body {
@@ -70,7 +69,7 @@ const StudentModules = () => {
                     margin: 0;
                     padding: 0;
                 }
-            `, // Custom styles (optional)
+            `,
         });
     };
 

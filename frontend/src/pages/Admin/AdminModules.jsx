@@ -216,7 +216,7 @@ const AdminModules = () => {
 
     const handlePrintDetails = (elementId) => {
         printJS({
-            printable: elementId, // Dynamically use the passed ID
+            printable: elementId,
             type: 'html',
             style: `
                 .modal-card-body {
@@ -225,10 +225,9 @@ const AdminModules = () => {
                     margin: 0;
                     padding: 0;
                 }
-            `, // Custom styles (optional)
+            `,
         });
     };
-
 
     return (
         <div className="admin-modules">

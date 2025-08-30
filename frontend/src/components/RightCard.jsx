@@ -18,8 +18,8 @@ const RightCard = () => {
       return new Promise((resolve) => {
         const img = new Image();
         img.src = src;
-        img.onload = resolve; // Resolve the promise once the image is loaded
-        img.onerror = resolve; // Resolve even if there's an error (to avoid stalling)
+        img.onload = resolve;
+        img.onerror = resolve;
       });
     });
 
