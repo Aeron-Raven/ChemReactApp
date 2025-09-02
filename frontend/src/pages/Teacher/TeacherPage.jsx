@@ -9,7 +9,7 @@ function TeacherPage() {
   return (
     <div className='teacher-page'>
       <TeacherNavbar />
-      <div className="space has-background-warning"></div>
+      <div className="space"></div>
       <div className="teacher-header">
         <ModulesContextProvider>
           <UsersContextProvider>

@@ -13,7 +13,8 @@ export const usersReducer = (state, action) => {
         case 'CREATE_USER':
             const newUser = {
                 ...action.payload,
-                createdAt: action.payload.createdAt || new Date()
+                createdAt: action.payload.createdAt || new Date(),
+                userfield: action.payload.userfield
             };
             return {
                 users: [newUser, ...state.users]

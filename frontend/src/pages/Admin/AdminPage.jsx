@@ -9,7 +9,7 @@ function AdminPage() {
   return (
     <div className='admin-page'>
       <AdminNavbar />
-      <div className="space has-background-primary"></div>
+      <div className="space"></div>
       <div className="admin-header">
         <ModulesContextProvider>
           <UsersContextProvider>

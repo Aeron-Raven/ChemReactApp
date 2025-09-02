@@ -77,7 +77,6 @@ const StudentModules = () => {
         <div className="student-modules">
             {tests && tests.map((test, index) => {
                 const module = user.modules?.find(mod => mod.moduleID === test._id);
-
                 return (
                     <div className="module-list" key={index}>
                         <table className="table is-fullwidth is-bordered is-hoverable">

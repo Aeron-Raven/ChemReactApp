@@ -3,6 +3,7 @@ import { useModulesContext } from '../../hooks/useModulesContext';
 import Modal from '../../components/Modal';
 import { useAuthContext } from '../../hooks/useAuthContext';
 import { URL } from '../../App';
+import Loader from '../../components/Loader';
 
 // Modal Bodies
 import TestDetailsBody from '../../components/Admin/modalinfo/TestDetailsBody';
@@ -15,12 +16,14 @@ const AdminModules = () => {
     const { tests, dispatch } = useModulesContext();
     const { user } = useAuthContext();
     const [error, setError] = useState('');
+    const [loading, setLoading] = useState(false);
     const choiceLabels = ["A", "B", "C", "D"];
 
     // Fetch tests
     useEffect(() => {
         const fetchTests = async () => {
-            setError(''); // Reset error before request
+            setError('');
+            setLoading(true);
             try {
                 const response = await fetch(`${URL}/api/testModules`, {
                     method: 'GET',
@@ -33,6 +36,7 @@ const AdminModules = () => {
                     throw new Error(json.error || 'Failed to fetch tests');
                 }
                 dispatch({ type: 'SET_TESTS', payload: Array.isArray(json) ? json : [] });
+                setLoading(false);
             } catch (error) {
                 setError(error.message || 'Something went wrong');
             }
@@ -232,7 +236,11 @@ const AdminModules = () => {
     return (
         <div className="admin-modules">
             <button className="button is-success" onClick={handleOpenAddModuleModal}>Add Module</button>
-            {tests && tests.map((test, index) => (
+            
+            <div className="module-container">
+            {/* {loading && <Loader />} */}
+            <Loader />
+            {!loading && tests && tests.map((test, index) => (
                 <div className="module-list" key={index}>
                     <table className="table is-fullwidth is-bordered is-hoverable">
                         <tbody>
@@ -250,7 +258,9 @@ const AdminModules = () => {
                     </table>
                 </div>
             ))}
-
+            {!loading && tests && tests.length === 0 && (<p>No current modules available.</p>)}
+            </div>
+            
             {/* Modals */}
             {selectedTest && modalState.testModalVisible && (
                 <Modal

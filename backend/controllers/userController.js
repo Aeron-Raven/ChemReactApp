@@ -16,7 +16,7 @@ const signupUser = async (req, res) => {
     try {
         const user = await User.signup(name, email, userfield, password, createdby)
 
-        res.status(200).json({ name, email, createdby })
+        res.status(200).json({ name, email, userfield, createdby })
     } catch (error) {
         res.status(400).json({ error: error.message })
     }
@@ -103,7 +103,7 @@ const adminLogin = async (req, res) => {
 }
 // Get users
 const getUsers = async (req, res) => {
-    const users = await User.find({}).sort({ createdAt: 1 })
+    const users = await User.find({}).sort({ createdAt: -1 })
     res.status(200).json(users)
 }
 // Delete Users
