@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 import { useLogout } from '../hooks/useLogout';
 import { useAuthContext } from '../hooks/useAuthContext';
 import { useState } from 'react';
-import chemlogo from '../assets/ChemToolVisionLogo.png';
+import chemlogo from '../assets/ChemToolVisionLogo.jpg';
 
 const Navbar = () => {
     const { logout } = useLogout()

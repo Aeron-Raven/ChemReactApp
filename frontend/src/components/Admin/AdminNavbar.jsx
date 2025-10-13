@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Modal from "../Modal";
 import { useLogout } from "../../hooks/useLogout";
 
@@ -7,6 +7,15 @@ const AdminNavbar = () => {
   const { logout } = useLogout();
   const [active, setActive] = useState("dashboard");
   const [click, setClick] = useState(false);
+
+  const [date, setDate] = useState(new Date());
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setDate(new Date());
+    }, 1000);
+    return () => clearInterval(timer);
+  }, []);
 
   const handleLogout = () => {
     logout();
@@ -19,7 +28,9 @@ const AdminNavbar = () => {
         <p className="title is-4">Admin</p>
         <p className="subtitle is-6">ChemTool Vision</p>
         <div className="content">
-          <time>{new Date().toDateString()}</time>
+          <time>{date.toLocaleTimeString()}</time>
+          <br />
+          <time>{date.toDateString()}</time>
         </div>
       </div>
       <ul className="menu-list">

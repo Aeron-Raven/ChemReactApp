@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
-import pic1 from '../assets/LoginPic1.png';
-import pic2 from '../assets/LoginPic2.png';
-import pic3 from '../assets/LoginPic3.png';
+import pic1 from '../assets/LoginPic1.jpg';
+import pic2 from '../assets/LoginPic2.jpg';
+import pic3 from '../assets/LoginPic3.jpg';
 
 const RightCard = () => {
-  const [imagesLoaded, setImagesLoaded] = useState(false); // Track if all images are loaded
+  const [imagesLoaded, setImagesLoaded] = useState(false);
 
   const imageSources = [
     pic1,
@@ -22,8 +22,6 @@ const RightCard = () => {
         img.onerror = resolve;
       });
     });
-
-    // When all images are loaded, update the state
     Promise.all(preloadImages).then(() => setImagesLoaded(true));
   }, []);
 

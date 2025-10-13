@@ -5,7 +5,7 @@ import EditUser from "../../components/EditUser";
 import { useUsersContext } from "../../hooks/useUsersContext";
 import { useAuthContext } from "../../hooks/useAuthContext";
 import { URL } from "../../App";
-import { format } from "date-fns";
+import { format, set } from "date-fns";
 
 const AdminUsers = () => {
   const { users, dispatch } = useUsersContext();
@@ -83,6 +83,7 @@ const AdminUsers = () => {
         setIsLoading(false);
       } catch (error) {
         setError(error.message || "Something went wrong");
+        setIsLoading(false);
       }
     };
     if (user) {

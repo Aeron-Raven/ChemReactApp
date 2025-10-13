@@ -238,8 +238,8 @@ const AdminModules = () => {
             <button className="button is-success" onClick={handleOpenAddModuleModal}>Add Module</button>
             
             <div className="module-container">
-            {/* {loading && <Loader />} */}
-            <Loader />
+            {loading && <Loader />}
+
             {!loading && tests && tests.map((test, index) => (
                 <div className="module-list" key={index}>
                     <table className="table is-fullwidth is-bordered is-hoverable">
