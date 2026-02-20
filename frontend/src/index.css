@@ -166,7 +166,7 @@ body {
   .home-link:hover {
     background-color: var(
       --info
-    ) !important; /* Bulma's primary color or any color you want */
+    ) !important;
     color: white !important;
   }
   .navbtn-container {
@@ -313,11 +313,11 @@ body {
   @keyframes fadeAnimation {
     0%,
     20% {
-      opacity: 1; /* Image fully visible */
+      opacity: 1;
     }
     30%,
     100% {
-      opacity: 0; /* Image fades out and remains hidden */
+      opacity: 0;
     }
   }
 
@@ -327,21 +327,21 @@ body {
     left: 0;
     width: 100%;
     object-fit: cover;
-    opacity: 0; /* Ensure initial state is invisible */
+    opacity: 0;
     animation: fadeAnimation 9s infinite;
-    animation-fill-mode: forwards; /* Persist animation state */
+    animation-fill-mode: forwards;
   }
 
   .fade-image:nth-child(1) {
-    animation-delay: 0s; /* Starts immediately */
+    animation-delay: 0s;
   }
 
   .fade-image:nth-child(2) {
-    animation-delay: 3s; /* Starts during the fade-out of the first image */
+    animation-delay: 3s;
   }
 
   .fade-image:nth-child(3) {
-    animation-delay: 6s; /* Starts during the fade-out of the second image */
+    animation-delay: 6s;
   }
 
   .note {
@@ -359,11 +359,10 @@ body {
   /* Student Modules */
   .module-container {
     position: relative;
-    min-height: 100vh; /* Fill viewport height, adjust as needed */
+    min-height: 100vh;
     height: 100%;
     width: 100%;
     background: white;
-    /* margin is handled by .admin-modules */
   }
   .modules-tab {
     margin: 6em 0;
@@ -476,9 +475,12 @@ body {
     align-items: center;
   }
   .logo img {
-    max-width: 6em; /* Reduce logo size */
+    max-width: 6em;
   }
   .navbar .menu-container {
+    display: none;
+  }
+  .navbtn-container{
     display: none;
   }
   .navbtn-container a {
@@ -486,7 +488,7 @@ body {
   }
 
   .menu-container {
-    flex-direction: column; /* Stack menu links */
+    flex-direction: column;
     gap: 1em;
   }
 
@@ -531,36 +533,36 @@ body {
   }
 
   .login-buttons {
-    flex-direction: column; /* Stack buttons vertically */
+    flex-direction: column;
     gap: 1em;
   }
 
   /* Admin Page */
   .admin-navbar {
-    width: 100%; /* Full-width navbar */
-    position: static; /* Remove fixed positioning */
+    width: 100%;
+    position: static;
     margin: 0;
     border-right: none;
-    border-bottom: 0.1em solid black; /* Add a bottom border instead */
+    border-bottom: 0.1em solid black;
   }
 
   .admin-page,
   .student-page,
   .teacher-page {
-    flex-direction: column; /* Stack content */
+    flex-direction: column;
   }
 
   .space {
-    display: none; /* Hide unnecessary spacing */
+    display: none;
   }
 
   /* General Adjustments */
   .module-list td {
-    width: auto; /* Allow table cells to shrink */
+    width: auto;
   }
 
   .module-list td button {
-    width: auto; /* Allow buttons to shrink */
+    width: auto;
   }
   .card-right {
     display: none;
