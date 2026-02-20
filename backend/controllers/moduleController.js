@@ -28,7 +28,7 @@ const createTest = async (req, res) => {
         res.status(200).json(test)
     }
     catch (error) {
-        res.status(400).json({ error: error.message })
+        res.status(500).json({ error: error.message })
     }
 }
 // DELETE
@@ -41,7 +41,7 @@ const deleteTest = async (req, res) => {
     const test = await TestModule.findOneAndDelete({ _id: id })
 
     if (!test) {
-        return res.status(400).json({ error: 'Test doesn\'t exist' })
+        return res.status(404).json({ error: 'Test doesn\'t exist' })
     }
 
     res.status(200).json(test)
@@ -55,7 +55,7 @@ const patchTest = async (req, res) => {
     const test = await TestModule.findOneAndUpdate({ _id: id }, { ...req.body }, { new: true })
 
     if (!test) {
-        return res.status(400).json({ error: 'Test doesn\'t exist' })
+        return res.status(404).json({ error: 'Test doesn\'t exist' })
     }
     res.status(200).json(test)
 }

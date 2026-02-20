@@ -18,7 +18,7 @@ const signupUser = async (req, res) => {
 
         res.status(200).json({ name, email, userfield, createdby })
     } catch (error) {
-        res.status(400).json({ error: error.message })
+        res.status(500).json({ error: error.message })
     }
 }
 const loginUser = async (req, res) => {
@@ -36,7 +36,7 @@ const loginUser = async (req, res) => {
 
         res.status(200).json({ name, email, userfield, token, modules})
     } catch (error) {
-        res.status(400).json({ error: error.message })
+        res.status(500).json({ error: error.message })
     }
 }
 const forgotPassword = async (req, res) => {
@@ -46,7 +46,7 @@ const forgotPassword = async (req, res) => {
         const user = await User.findOne({ email })
 
         if (!user) {
-            return res.status(400).json({ error: 'This email is not associated with any account' })
+            return res.status(404).json({ error: 'This email is not associated with any account' })
         }
         const resetToken = crypto.randomBytes(20).toString('hex');
         const resetTokenExpiry = Date.now() + 60 * 60 * 1000;
@@ -56,11 +56,11 @@ const forgotPassword = async (req, res) => {
 
         await user.save();
 
-        await sendPasswordResetEmail(user.email, `${process.env.BASE_URL}/reset-password/${resetToken}`);
+        await sendPasswordResetEmail(user.email, `${process.env.API_URL}/reset-password/${resetToken}`);
 
         res.status(200).json({ message: 'Password Reset Successfully' })
     } catch (error) {
-        res.status(400).json({ error: error.message })
+        res.status(500).json({ error: error.message })
     }
 }
 const resetPassword = async (req, res) => {
@@ -71,14 +71,14 @@ const resetPassword = async (req, res) => {
         const user = await User.resetpass(token, password)
 
         if (!user) {
-            return res.status(400).json({ error: 'Invalid or expired reset token' })
+            return res.status(403).json({ error: 'Invalid or expired reset token' })
         }
 
         await sendResetSuccessEmail(user.email);
 
         res.status(200).json({ message: 'Password Reset Successfully' })
     } catch (error) {
-        res.status(400).json({ error: error.message })
+        res.status(500).json({ error: error.message })
     }
 }
 // Admin
@@ -87,7 +87,7 @@ const adminLogin = async (req, res) => {
 
     try {
         if ((name !== process.env.ADMIN) || (password !== process.env.ADMIN_PASS)) {
-            return res.status(400).json({ error: 'Invalid name / Password' })
+            return res.status(406).json({ error: 'Invalid name / Password' })
         }
 
         const userfield = 'admin'
@@ -98,7 +98,7 @@ const adminLogin = async (req, res) => {
 
         res.status(200).json({ name, userfield, token, createdby})
     } catch (error) {
-        res.status(400).json({ error: error.message })
+        res.status(500).json({ error: error.message })
     }
 }
 // Get users
@@ -116,7 +116,7 @@ const deleteUser = async (req, res) => {
     const user = await User.findOneAndDelete({ _id: id })
 
     if (!user) {
-        return res.status(400).json({ error: 'User doesn\'t exist' })
+        return res.status(404).json({ error: 'User doesn\'t exist' })
     }
 
     res.status(200).json(user)
@@ -133,12 +133,12 @@ const patchUser = async (req, res) => {
         const user = await User.updateuser(id, name, email, userfield)
 
         if (!user) {
-            return res.status(400).json({ error: 'User doesn\'t exist' })
+            return res.status(404).json({ error: 'User doesn\'t exist' })
         }
 
         res.status(200).json(user)
     } catch (error) {
-        res.status(400).json({ error: `An error occurred. ${error.message}` })
+        res.status(500).json({ error: `An error occurred. ${error.message}` })
     }
 }
 const addUserScore = async (req, res) => {
@@ -155,12 +155,12 @@ const addUserScore = async (req, res) => {
         const user = await User.addscore(_id, modules);
 
         if (!user) {
-            return res.status(400).json({ error: "User doesn't exist" });
+            return res.status(404).json({ error: "User doesn't exist" });
         }
 
         res.status(200).json(user);
     } catch (error) {
-        res.status(400).json({ error: `An error occurred. ${error.message}` });
+        res.status(500).json({ error: `An error occurred. ${error.message}` });
     }
 };
 
