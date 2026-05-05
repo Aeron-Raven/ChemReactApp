@@ -164,9 +164,7 @@ body {
     color: grey;
   }
   .home-link:hover {
-    background-color: var(
-      --info
-    ) !important;
+    background-color: var(--info) !important;
     color: white !important;
   }
   .navbtn-container {
@@ -291,9 +289,10 @@ body {
 
   .login-buttons {
     display: flex;
-    align-items: center;
-    margin-top: 2.5em;
-    gap: 2em;
+    flex-direction: column;
+    width: fit-content;
+
+    gap: 0.5em;
   }
   .card-left {
     width: 100%;
@@ -480,7 +479,7 @@ body {
   .navbar .menu-container {
     display: none;
   }
-  .navbtn-container{
+  .navbtn-container {
     display: none;
   }
   .navbtn-container a {
@@ -493,12 +492,22 @@ body {
   }
 
   /* Header Text and Image */
+  .headimage {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
   .headimage img {
     margin-top: 5em;
+    transform: scale(0.9);
+  }
+  .headtext {
+    text-align: center;
   }
   /* Page Body */
   .page-body {
-    margin: 2em;
+    margin: 1.5em;
   }
 
   .box-wrapper {
@@ -515,8 +524,8 @@ body {
     padding: 2em;
     margin-bottom: 4em;
   }
-  .download button {
-    margin-bottom: 4em;
+  .download span a {
+    margin-bottom: 3em;
   }
 
   /* Footer */
@@ -527,14 +536,22 @@ body {
   }
 
   /* Form */
-  .form-card {
-    margin: 1em;
-    padding: 2em;
+  .card-left {
+    width: 92%;
   }
-
+  .form-card.is-fluid {
+    margin: 2em;
+    padding: 0;
+  }
+  .login-page {
+    margin: auto;
+    width: auto;
+  }
   .login-buttons {
+    display: flex;
     flex-direction: column;
-    gap: 1em;
+    align-items: center;
+    gap: 0.5em;
   }
 
   /* Admin Page */

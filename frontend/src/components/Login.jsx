@@ -100,10 +100,10 @@ const Login = () => {
         {emptyFields.includes("password") && (
           <div className="error">Please enter a password.</div>
         )}
-        <div className="is-pulled-left">
-          <Link onClick={handleOpenResetModal}>Forgot Password?</Link>
-        </div>
         <div className="login-buttons">
+          <div className="is-pulled-left">
+            <Link onClick={handleOpenResetModal}>Forgot Password?</Link>
+          </div>
           <button
             type="submit"
             id="loginBtn"

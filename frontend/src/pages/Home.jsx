@@ -9,11 +9,14 @@ const Home = () => {
 
     // Create the IntersectionObserver
     const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("show");
-        }
-      }, {threshold: 1});
+      entries.forEach(
+        (entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("show");
+          }
+        },
+        { threshold: 1 },
+      );
     });
 
     hiddenElements.forEach((el) => observer.observe(el));
@@ -22,7 +25,7 @@ const Home = () => {
   }, []);
   return (
     <div className="home-page">
-      <div className="headimage">
+      <div id="home" className="headimage">
         <img
           className="fade-animate starthide image"
           src={chemapp1}
@@ -38,7 +41,7 @@ const Home = () => {
         </div>
       </div>
 
-      <section className="page-body">
+      <section id="features" className="page-body">
         <div className="box-wrapper">
           <div className="box-container-1">
             <h1 className="title is-3">Create New Discoveries</h1>
@@ -93,15 +96,17 @@ const Home = () => {
               Only supports Android Version 9 and above.
             </div>
           </h1>
-          <a
-            href="https://tinyurl.com/ChemToolVision"
-            download="ChemToolVision.apk"
-            target="_blank"
-            rel="noreferrer"
-            className="button is-link"
-          >
-            Download
-          </a>
+          <span>
+            <a
+              href="https://tinyurl.com/ChemToolVision"
+              download="ChemToolVision.apk"
+              target="_blank"
+              rel="noreferrer"
+              className="button is-link"
+            >
+              Download
+            </a>
+          </span>
           <table className="table is-fullwidth is-bordered">
             <thead>
               <tr>

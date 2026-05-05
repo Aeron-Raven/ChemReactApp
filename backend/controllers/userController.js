@@ -34,7 +34,7 @@ const loginUser = async (req, res) => {
         // Auth token
         const token = createToken(user._id)
 
-        res.status(200).json({ name, email, userfield, token, modules})
+        res.status(200).json({ name, email, userfield, token, modules })
     } catch (error) {
         res.status(500).json({ error: error.message })
     }
@@ -96,7 +96,7 @@ const adminLogin = async (req, res) => {
         // Auth token
         const token = createAdminToken(process.env.ADMIN_TOKEN);
 
-        res.status(200).json({ name, userfield, token, createdby})
+        res.status(200).json({ name, userfield, token, createdby })
     } catch (error) {
         res.status(500).json({ error: error.message })
     }
